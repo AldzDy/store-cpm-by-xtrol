@@ -351,7 +351,7 @@
                     localStorage.setItem('loginToken', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
                     showNotification('success', 'Login Berhasil', 'Anda berhasil masuk dengan akun Telegram.');
-                    setTimeout(() => { window.location.href = 'home.html'; }, 2000);
+                    setTimeout(() => { window.location.href = 'homePage.html'; }, 2000);
                 } else {
                     showNotification('error', 'Login Gagal', data.message);
                 }
@@ -417,7 +417,7 @@
                             sessionStorage.setItem('user', JSON.stringify(data.user));
                         }
                         showNotification('success', 'Login Berhasil', data.message);
-                        setTimeout(() => { window.location.href = 'home.html'; }, 2000);
+                        setTimeout(() => { window.location.href = 'homePage.html'; }, 2000);
                     } else {
                         showNotification('error', 'Login Gagal', data.message);
                     }
@@ -453,7 +453,7 @@
                         localStorage.setItem('loginToken', data.token);
                         localStorage.setItem('user', JSON.stringify(data.user));
                         showNotification('success', 'Pendaftaran Berhasil', data.message);
-                        setTimeout(() => { window.location.href = 'home.html'; }, 2000);
+                        setTimeout(() => { window.location.href = 'homePage.html'; }, 2000);
                     } else {
                         showNotification('error', 'Pendaftaran Gagal', data.message);
                     }
@@ -628,7 +628,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.valid) {
-                            window.location.href = 'home.html';
+                            window.location.href = 'homePage.html';
                         } else {
                             localStorage.clear();
                             sessionStorage.clear();
