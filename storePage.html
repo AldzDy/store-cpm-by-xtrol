@@ -1,0 +1,3380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content=
+  "width=device-width, initial-scale=1.0">
+  <title>XTROL STORE 🛍️</title>
+  <link href=
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+  rel="stylesheet">
+  <link rel="stylesheet" href=
+  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+        :root { 
+            --primary-color: #ff0000; 
+            --secondary-color: #6c757d; 
+            --success-color: #28a745; 
+            --danger-color: #dc3545; 
+            --warning-color: #ffc107; 
+            --info-color: #17a2b8; 
+            --light-color: #f8f9fa; 
+            --dark-color: #000000; 
+            --gradient: linear-gradient(135deg, #8b0000 0%, #ff0000 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            background: #000000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            color: #ffffff; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background Layer */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, rgba(0,0,0,0) 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        .animated-bg::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle, rgba(139,0,0,0.1) 0%, rgba(0,0,0,0) 60%);
+            animation: rotate-reverse 40s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes rotate-reverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+        
+        .container { 
+            flex: 1; 
+            max-width: 1000px; 
+            margin: 30px auto; 
+            padding: 0 20px; 
+            width: 100%; 
+        }
+        
+        .card { 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2); 
+            margin-bottom: 25px; 
+            overflow: hidden; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            background: rgba(20, 20, 20, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 35px rgba(255, 0, 0, 0.3); 
+        }
+        
+        .card-header { 
+            background: var(--gradient); 
+            color: white; 
+            font-weight: 600; 
+            padding: 20px; 
+            border: none; 
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn-primary { 
+            background: var(--gradient); 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+            background: linear-gradient(135deg, #a00000 0%, #ff0000 100%);
+        }
+        
+        .btn-success { 
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .btn-success:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+        }
+        
+        .btn-outline-primary {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 600;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-back {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .form-control { 
+            border-radius: 10px; 
+            padding: 12px 15px; 
+            margin-bottom: 15px; 
+            border: 1px solid rgba(255, 0, 0, 0.3); 
+            background: rgba(30, 30, 30, 0.8);
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+            background: rgba(40, 40, 40, 0.9);
+        }
+        
+        /* Notification Styles */
+        .notification { 
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            padding: 15px 25px; 
+            border-radius: 10px; 
+            color: white; 
+            font-weight: 600; 
+            z-index: 1000; 
+            display: none; 
+            animation: slideIn 0.5s ease; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            max-width: 300px;
+            cursor: pointer;
+        }
+        
+        .notification:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .notification-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        
+        .notification-close:hover {
+            opacity: 1;
+        }
+        
+        .notification-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification-title i {
+            margin-right: 8px;
+        }
+        
+        .notification-message {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        @keyframes slideIn { 
+            from { 
+                transform: translateX(100%); 
+                opacity: 0; 
+            } to { 
+                transform: translateX(0); 
+                opacity: 1; 
+            } 
+        }
+        
+        @keyframes slideOut { 
+            from { 
+                transform: translateX(0); 
+                opacity: 1; 
+            } to { 
+                transform: translateX(100%); 
+                opacity: 0; 
+            } 
+        }
+        
+        .success-notification { 
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
+        }
+        
+        .error-notification { 
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); 
+        }
+        
+        .info-notification { 
+            background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%); 
+        }
+        
+        .warning-notification { 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); 
+        }
+        
+        .progress-container { 
+            margin: 20px 0; 
+            display: none; 
+        }
+        
+        .progress { 
+            height: 10px; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-bar {
+            background: var(--gradient);
+        }
+        
+        .footer { 
+            background: var(--dark-color); 
+            color: white; 
+            text-align: center; 
+            padding: 20px; 
+            margin-top: auto; 
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+        }
+        
+        .car-item { 
+            padding: 15px; 
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: all 0.3s ease;
+        }
+        
+        .car-item:last-child { 
+            border-bottom: none; 
+        }
+        
+        .car-item.selected { 
+            background-color: rgba(255, 0, 0, 0.1); 
+        }
+        
+        .car-item:hover {
+            background-color: rgba(255, 0, 0, 0.05);
+        }
+        
+        .car-status { 
+            display: inline-block; 
+            width: 10px; 
+            height: 10px; 
+            border-radius: 50%; 
+            margin-right: 10px; 
+        }
+        
+        .status-locked { 
+            background-color: var(--danger-color); 
+        }
+        
+        .status-unlocked { 
+            background-color: var(--success-color); 
+        }
+        
+        .spinner-border { 
+            width: 1rem; 
+            height: 1rem; 
+            margin-right: 10px; 
+        }
+        
+        .logo { 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+        
+        .logo i { 
+            font-size: 3.5rem; 
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .logo h1 { 
+            font-weight: 700; 
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .editor-container { 
+            margin-top: 20px; 
+        }
+        
+        .edit-item { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 20px; 
+            padding: 20px; 
+            background-color: rgba(30, 30, 30, 0.8); 
+            border-radius: 15px; 
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .edit-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.2);
+        }
+        
+        .edit-icon { 
+            font-size: 2rem; 
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 20px; 
+        }
+        
+        .edit-label { 
+            flex: 1; 
+            font-weight: 600; 
+            min-width: 150px; 
+        }
+        
+        .edit-input { 
+            width: 120px; 
+            margin: 0 15px; 
+            border-radius: 10px;
+        }
+        
+        .edit-description { 
+            flex: 2; 
+            font-size: 14px; 
+            color: var(--secondary-color); 
+        }
+        
+        .tab-content { 
+            max-height: 80vh; 
+            overflow-y: auto; 
+        }
+        
+        .selection-controls { 
+            margin: 15px 0; 
+            display: flex; 
+            gap: 10px; 
+        }
+        
+        .car-list-container { 
+            max-height: 300px; 
+            overflow-y: auto; 
+            border: 1px solid rgba(255, 0, 0, 0.3); 
+            padding: 10px; 
+            border-radius: 15px; 
+            background: rgba(30, 30, 30, 0.8);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        .car-list-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 15px; 
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+        
+        .car-count { 
+            font-weight: 600; 
+            color: var(--primary-color); 
+        }
+        
+        .car-item-checkbox { 
+            margin-right: 10px; 
+        }
+        
+        .car-item-info { 
+            flex: 1; 
+            display: flex; 
+            align-items: center; 
+        }
+        
+        .car-item-details { 
+            flex: 1; 
+        }
+        
+        .car-item-id { 
+            font-weight: 600; 
+        }
+        
+        .car-item-name { 
+            color: var(--secondary-color); 
+            font-size: 14px; 
+        }
+        
+        .selection-summary { 
+            margin: 15px 0; 
+            padding: 15px; 
+            background: rgba(255, 0, 0, 0.1); 
+            border-radius: 10px; 
+            display: flex;
+            align-items: center;
+        }
+        
+        .selection-summary i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .selection-summary span { 
+            font-weight: 600; 
+            color: var(--primary-color); 
+        }
+        
+        .menu-item { 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin-bottom: 15px; 
+            background: rgba(30, 30, 30, 0.8); 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .menu-item:hover { 
+            background: rgba(40, 40, 40, 0.9); 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.2);
+        }
+        
+        .menu-item.active { 
+            background: var(--gradient); 
+            color: white; 
+        }
+        
+        .menu-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-icon { 
+            font-size: 1.8rem; 
+            margin-right: 15px; 
+        }
+        
+        .menu-content {
+            flex: 1;
+        }
+        
+        .menu-title { 
+            font-weight: 600; 
+            font-size: 1.1rem; 
+        }
+        
+        .menu-description { 
+            font-size: 0.9rem; 
+            color: var(--secondary-color); 
+            margin-top: 5px; 
+        }
+        
+        .menu-item.active .menu-description { 
+            color: rgba(255, 255, 255, 0.8); 
+        }
+        
+        .menu-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-input {
+            width: 100px;
+            margin-left: 15px;
+        }
+        
+        .edit-section { 
+            display: none; 
+        }
+        
+        .edit-section.active { 
+            display: block; 
+        }
+        
+        .warning-text { 
+            color: var(--danger-color); 
+            font-weight: 600; 
+        }
+        
+        .info-box { 
+            background: rgba(255, 0, 0, 0.1); 
+            border-left: 4px solid var(--primary-color); 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            border-radius: 0 10px 10px 0; 
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--secondary-color);
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 10px 10px 0 0;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .badge {
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .btn-sm {
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .engine-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .engine-input-group {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .steering-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .steering-option {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .steering-option input[type="radio"] {
+            display: none;
+        }
+        
+        .steering-option label {
+            display: block;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .steering-option input[type="radio"]:checked + label {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .steering-option label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+        }
+        
+        .inject-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .inject-option {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .inject-option input[type="radio"] {
+            display: none;
+        }
+        
+        .inject-option label {
+            display: block;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .inject-option input[type="radio"]:checked + label {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .inject-option label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+        }
+        
+        .inject-option i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .inject-car-list {
+            margin-top: 20px;
+        }
+        
+        .inject-car-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .inject-car-item:hover {
+            background: rgba(40, 40, 40, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        .inject-car-item.selected {
+            background: rgba(255, 0, 0, 0.1);
+        }
+        
+        .inject-car-checkbox {
+            margin-right: 15px;
+        }
+        
+        .inject-car-info {
+            flex: 1;
+        }
+        
+        .inject-car-id {
+            font-weight: 600;
+        }
+        
+        .inject-car-name {
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+        
+        .inject-car-status {
+            margin-left: 10px;
+        }
+        
+        .inject-car-status i {
+            color: var(--success-color);
+        }
+        
+        .livery-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .livery-item:hover {
+            background: rgba(40, 40, 40, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        .livery-item.selected {
+            background: rgba(255, 0, 0, 0.1);
+        }
+        
+        .livery-checkbox {
+            margin-right: 15px;
+        }
+        
+        .livery-info {
+            flex: 1;
+        }
+        
+        .livery-id {
+            font-weight: 600;
+        }
+        
+        .livery-name {
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+        
+        .livery-status {
+            margin-left: 10px;
+        }
+        
+        .livery-status i {
+            color: var(--success-color);
+        }
+        
+        .king-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .king-option {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .king-option label {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .king-option label:hover {
+            background: rgba(40, 40, 40, 0.9);
+        }
+        
+        .king-option input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        .king-value {
+            width: 80px;
+            margin-left: 10px;
+        }
+        
+        .achievement-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .achievement-item {
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .achievement-item:hover {
+            background: rgba(40, 40, 40, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        .achievement-item.selected {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .achievement-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .achievement-description {
+            font-size: 12px;
+            color: var(--secondary-color);
+        }
+        
+        .achievement-item.selected .achievement-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .king-auto {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        .king-auto h4 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .king-auto-description {
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .achievement-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(30, 30, 30, 0.8);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        .achievement-checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-checkbox-item:hover {
+            background: rgba(40, 40, 40, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        .achievement-checkbox-item.selected {
+            background: rgba(255, 0, 0, 0.1);
+        }
+        
+        .achievement-checkbox {
+            margin-right: 15px;
+        }
+        
+        .achievement-info {
+            flex: 1;
+        }
+        
+        .achievement-id {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .achievement-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .achievement-description {
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+        
+        .achievement-status {
+            margin-left: 10px;
+        }
+        
+        .achievement-status i {
+            color: var(--success-color);
+        }
+        
+        .tab-icon {
+            margin-right: 8px;
+        }
+        
+        /* Chrome Body Styles */
+        .chrome-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .chrome-option {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .chrome-option input[type="radio"] {
+            display: none;
+        }
+        
+        .chrome-option label {
+            display: block;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .chrome-option input[type="radio"]:checked + label {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .chrome-option label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+        }
+        
+        .chrome-value-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        .chrome-value-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chrome-value-display {
+            background: var(--gradient);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .chrome-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            margin: 15px 0;
+            -webkit-appearance: none;
+        }
+        
+        .chrome-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--gradient);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .chrome-slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--gradient);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .chrome-modes {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .chrome-mode {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .chrome-mode input[type="radio"] {
+            display: none;
+        }
+        
+        .chrome-mode label {
+            display: block;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .chrome-mode input[type="radio"]:checked + label {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .chrome-mode label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+        }
+        
+        .chrome-mode i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .chrome-preview {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .chrome-preview-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .chrome-preview-box {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+        
+        .nav-item {
+            padding: 12px 20px;
+            margin: 0 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .nav-item.active {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .nav-item i {
+            margin-right: 8px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background-color: rgba(30, 30, 30, 0.95);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+            animation: slideIn 0.5s;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-header {
+            background: var(--gradient);
+            color: white;
+            padding: 20px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .modal-title i {
+            margin-right: 10px;
+        }
+        
+        .modal-close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .modal-close:hover {
+            opacity: 1;
+        }
+        
+        .modal-body {
+            padding: 25px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 0, 0, 0.2);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+            }
+            
+            .nav-item {
+                margin: 5px;
+                font-size: 0.9rem;
+            }
+            
+            .edit-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .edit-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .edit-label {
+                min-width: auto;
+            }
+            
+            .edit-input {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .menu-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .menu-right {
+                margin-top: 10px;
+                width: 100%;
+            }
+            
+            .menu-input {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            
+            .engine-inputs {
+                flex-direction: column;
+            }
+            
+            .engine-input-group {
+                width: 100%;
+            }
+            
+            .steering-options {
+                flex-direction: column;
+            }
+            
+            .inject-options {
+                flex-direction: column;
+            }
+            
+            .king-options {
+                flex-direction: column;
+            }
+            
+            .king-option {
+                width: 100%;
+            }
+            
+            .achievement-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .chrome-options {
+                flex-direction: column;
+            }
+            
+            .chrome-modes {
+                flex-direction: column;
+            }
+            
+            .notification {
+                max-width: 250px;
+                right: 10px;
+                top: 10px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+  </style>
+</head>
+<body>
+  <!-- Animated Background Layer -->
+  <div class="animated-bg"></div>
+  <div id="notification" class="notification">
+    <div class="notification-title">
+      <span id="notificationTitle">Notifikasi</span>
+    </div>
+    <div class="notification-message" id="notificationMessage">
+      Pesan notifikasi
+    </div><span class="notification-close" id=
+    "notificationClose">×</span>
+  </div><!-- Feature Modal -->
+  <div id="featureModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i id="modalIcon" class=
+        "fas fa-tools"></i> <span id=
+        "modalTitle">Fitur</span></h4><button class="modal-close"
+        id="modalClose">×</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Feature content will be loaded here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id=
+        "modalCancel">Batal</button> <button type="button" class=
+        "btn btn-primary" id="modalApply">Terapkan</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <!-- Logo Section -->
+    <div class="logo">
+      <h1>XTROL STORE</h1>
+    </div><!-- Navigation Menu -->
+    <div class="nav-menu">
+      <div class="nav-item active" data-section="tools">
+        Tools
+      </div>
+      <div class="nav-item" data-section="king">
+        King
+      </div>
+      <div class="nav-item" data-section="achievement">
+        Achievement
+      </div>
+    </div><!-- Tools Section -->
+    <div id="toolsSection" class="card fade-in">
+      <div class="card-header">
+        <span>Menu Tools</span> <a href="home.html" class=
+        "btn btn-back"> Kembali</a>
+      </div>
+      <div class="card-body">
+        <p><strong>Status:</strong> <span id=
+        "editorStatusText">Tools siap digunakan.</span></p>
+        <div class="editor-container" id="editorContainer">
+          <div class="info-box">
+            Pilih menu di bawah untuk mengedit komponen mobil.
+          </div>
+          <div class="menu-list">
+            <div class="menu-item" data-feature="login">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Login Akun Game
+                  </div>
+                  <div class="menu-description">
+                    Login untuk mengakses data mobil Anda
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="frontBumper">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Trondol Bumper Depan
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="rearBumper">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Trondol Bumper Belakang
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="bothBumpers">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Trondol Bumper Depan & Belakang
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="roofRack">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Edit Roof
+                  </div>
+                  <div class="menu-description">
+                    Masukan code roof secara manual
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right">
+                <input type="number" class=
+                "form-control menu-input" id="roof" min="-2" max=
+                "99" value="24">
+              </div>
+            </div>
+            <div class="menu-item" data-feature="unlockPolice">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Unlock Police
+                  </div>
+                  <div class="menu-description">
+                    Membuka akses mobil polisi
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="customEngine">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Custom Engine
+                  </div>
+                  <div class="menu-description">
+                    Kustomisasi performa mesin mobil
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="customSteering">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Custom Steering Angle
+                  </div>
+                  <div class="menu-description">
+                    Kustomisasi sudut kemudi mobil
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="customChrome">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Custom Chrome Body
+                  </div>
+                  <div class="menu-description">
+                    Kustomisasi warna chrome body mobil
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="injectCars">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Inject Cars
+                  </div>
+                  <div class="menu-description">
+                    Ubah mobil dari mod ke ORI atau sebaliknya
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+            <div class="menu-item" data-feature="injectLivery">
+              <div class="menu-left">
+                <div class="menu-icon"></div>
+                <div class="menu-content">
+                  <div class="menu-title">
+                    Inject Livery
+                  </div>
+                  <div class="menu-description">
+                    Terapkan livery kustom ke mobil
+                  </div>
+                </div>
+              </div>
+              <div class="menu-right"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- King Section -->
+    <div id="kingSection" class="card fade-in" style=
+    "display: none;">
+      <div class="card-header">
+        <span>Menu King</span> <a href="home.html" class=
+        "btn btn-back"> Kembali</a>
+      </div>
+      <div class="card-body">
+        <div class="king-auto">
+          <h4>Inject King (Auto King)</h4>
+          <div class="king-auto-description">
+            <p>Fitur ini akan membuat akun Anda menjadi king di
+            semua kategori secara otomatis. Cukup masukkan email
+            dan password akun Anda, lalu klik tombol
+            "Terapkan".</p>
+            <p class="text-danger"><strong>Perhatian:</strong>
+            Gunakan fitur ini dengan bijak. Pengguna wajib logout
+            akun terlebih dahulu.</p>
+          </div>
+          <div class="mb-3">
+            <label for="kingEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="kingEmail"
+            placeholder="Masukkan email Anda">
+          </div>
+          <div class="mb-3">
+            <label for="kingPassword" class=
+            "form-label">Password</label> <input type="password"
+            class="form-control" id="kingPassword" placeholder=
+            "Masukkan password Anda">
+          </div><button id="kingApplyBtn" class=
+          "btn btn-success"><span id="kingApplySpinner" class=
+          "spinner-border spinner-border-sm d-none" role="status"
+          aria-hidden="true"></span> Terapkan</button>
+          <div class="king-progress-container mt-3" style=
+          "display: none;">
+            <div class="progress">
+              <div class=
+              "progress-bar progress-bar-striped progress-bar-animated"
+              role="progressbar" style="width: 0%"></div>
+            </div>
+            <div class="text-center mt-2">
+              Memproses... <span id="kingProgressText">0%</span>
+            </div>
+          </div>
+          <div class="info-box mt-3">
+            <strong>Info:</strong> Sistem akan otomatis mengatur
+            nilai maksimal untuk semua kategori.
+            <ul class="mt-2 mb-0"></ul>
+          </div>
+        </div>
+      </div>
+    </div><!-- Achievement Section -->
+    <div id="achievementSection" class="card fade-in" style=
+    "display: none;">
+      <div class="card-header">
+        <span>Menu Achievement</span> <a href="home.html" class=
+        "btn btn-back"> Kembali</a>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="achievementEmail" class=
+          "form-label">Email</label> <input type="email" class=
+          "form-control" id="achievementEmail" placeholder=
+          "Masukkan email Anda">
+        </div>
+        <div class="mb-3">
+          <label for="achievementPassword" class=
+          "form-label">Password</label> <input type="password"
+          class="form-control" id="achievementPassword"
+          placeholder="Masukkan password Anda">
+        </div>
+        <div class="selection-controls mt-4">
+          <button id="selectAllAchievementsBtn" class=
+          "btn btn-sm btn-outline-primary">Pilih Semua</button>
+          <button id="deselectAllAchievementsBtn" class=
+          "btn btn-sm btn-outline-secondary">Batal Pilih
+          Semua</button>
+        </div>
+        <div class="selection-summary">
+          <span id="selectedAchievementCount">0</span> dari
+          <span id="totalAchievementCount">0</span> achievement
+          dipilih
+        </div>
+        <div class="achievement-container">
+          <div class="car-list-header">
+            <h5>Daftar Achievement</h5>
+            <div class="car-count">
+              Total: <span id="totalAchievementsCount">0</span>
+              achievement
+            </div>
+          </div>
+          <div id="achievementList" class="list-group">
+            <!-- Achievement list will be populated here -->
+          </div>
+        </div><button id="achievementApplyBtn" class=
+        "btn btn-success mt-3"><span id="achievementApplySpinner"
+        class="spinner-border spinner-border-sm d-none" role=
+        "status" aria-hidden="true"></span> Terapkan</button>
+        <div class="achievement-progress-container mt-3" style=
+        "display: none;">
+          <div class="progress">
+            <div class=
+            "progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar" style="width: 0%"></div>
+          </div>
+          <div class="text-center mt-2">
+            Memproses... <span id=
+            "achievementProgressText">0/0</span>
+          </div>
+        </div>
+        <div class="info-box mt-3">
+          <strong>Perhatian:</strong> Pilih achievement yang ingin
+          dibuka. Achievement yang dipilih akan ditambahkan ke
+          profil Anda.
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <p>© 2023 XTROL STORE 🛍️</p>
+  </footer>
+  <script src=
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+
+        const API_BASE_URL = 'api/api.php'; 
+        let carsData = [];
+        let selectedCars = new Set();
+        let currentEditSection = null;
+        let injectCarFiles = [];
+        let selectedInjectCars = new Set();
+        let liveryFiles = [];
+        let selectedLivery = new Set();
+        let selectedKingKeys = new Set();
+        let selectedAchievements = new Set();
+        let editData = {
+            frontBumper: -9,
+            rearBumper: -9,
+            roof: 24,
+            police: 1,
+            engine: {
+                hp: 300,
+                innerHp: 7000,
+                nm: 2299,
+                innerNm: 6799,
+                grip: 100
+            },
+            steering: 40,
+            chrome: {
+                value: 2.0,
+                option: 'first',
+                mode: 'dark',
+                index1: 21,
+                index2: 22
+            },
+            injectDirection: 'mod_to_ori'
+        };
+
+        // Achievement data
+        const achievementData = [
+            { id: "cars", name: "Mobil", description: "Koleksi mobil" },
+            { id: "car_fix", name: "Perbaikan Mobil", description: "Jumlah perbaikan mobil" },
+            { id: "car_collided", name: "Tabrakan Mobil", description: "Jumlah tabrakan mobil" },
+            { id: "car_exchange", name: "Pertukaran Mobil", description: "Jumlah pertukaran mobil" },
+            { id: "car_trade", name: "Perdagangan Mobil", description: "Jumlah perdagangan mobil" },
+            { id: "car_wash", name: "Cuci Mobil", description: "Jumlah pencucian mobil" },
+            { id: "slicer_cut", name: "Slicer Cut", description: "Jumlah slicer cut" },
+            { id: "drift_max", name: "Drift Maksimal", description: "Nilai drift maksimal" },
+            { id: "drift", name: "Drift", description: "Jumlah drift" },
+            { id: "cargo", name: "Kargo", description: "Jumlah pengiriman kargo" },
+            { id: "delivery", name: "Pengiriman", description: "Jumlah pengiriman" },
+            { id: "taxi", name: "Taksi", description: "Jumlah perjalanan taksi" },
+            { id: "levels", name: "Level", description: "Level pemain" },
+            { id: "gifts", name: "Hadiah", description: "Jumlah hadiah yang diterima" },
+            { id: "fuel", name: "Bahan Bakar", description: "Jumlah pengisian bahan bakar" },
+            { id: "offroad", name: "Offroad", description: "Jumlah perjalanan offroad" },
+            { id: "speed_banner", name: "Spanduk Kecepatan", description: "Jumlah spanduk kecepatan" },
+            { id: "reactions", name: "Reaksi", description: "Jumlah reaksi" },
+            { id: "police", name: "Polisi", description: "Jumlah kejaran dengan polisi" },
+            { id: "run", name: "Lari", description: "Jumlah lari" },
+            { id: "real_estate", name: "Properti", description: "Jumlah properti yang dimiliki" },
+            { id: "t_distance", name: "Jarak Tempuh", description: "Total jarak tempuh" },
+            { id: "treasure", name: "Harta Karun", description: "Jumlah harta karun yang ditemukan" },
+            { id: "block_post", name: "Blok Pos", description: "Jumlah blok pos" },
+            { id: "push_ups", name: "Push Up", description: "Jumlah push up" },
+            { id: "burnt_tire", name: "Ban Terbakar", description: "Jumlah ban yang terbakar" },
+            { id: "passanger_distance", name: "Jarak Penumpang", description: "Total jarak dengan penumpang" },
+            { id: "race_win", name: "Menang Balapan", description: "Jumlah kemenangan balapan" }
+        ];
+
+        // Feature templates for modal
+        const featureTemplates = {
+            login: {
+                title: 'Login Akun Game',
+                icon: 'fas fa-sign-in-alt',
+                content: `
+                    <div class="mb-3">
+                        <label for="modalEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="modalEmail" placeholder="Masukkan email Anda">
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="modalPassword" placeholder="Masukkan password Anda">
+                    </div>
+                    <div class="info-box">
+                        <i class="fas fa-info-circle me-2"></i> 
+                        Masukkan email dan password akun game Anda untuk mengakses data mobil.
+                    </div>
+                `
+            },
+            frontBumper: {
+                title: 'Trondol Bumper Depan',
+                icon: 'fas fa-minus-circle',
+                content: `
+                    <div class="info-box">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 
+                        <strong>Perhatian:</strong> Fitur ini akan menghilangkan bumper depan mobil yang dipilih.
+                    </div>
+                    <p>Fitur ini akan mengubah nilai bumper depan mobil menjadi -9 yang membuatnya tidak terlihat pada mobil.</p>
+                    
+                    <h5 class="mt-4">Pilih Mobil untuk Diedit:</h5>
+                    <div class="selection-controls">
+                        <button id="modalSelectAllCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalInvertSelectionBtn" class="btn btn-sm btn-outline-warning">Balik Pilihan</button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedCount">0</span> dari <span id="modalTotalCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="car-list-container">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalCarList" class="list-group">
+                            <!-- Car list will be populated here -->
+                        </div>
+                    </div>
+                `
+            },
+            rearBumper: {
+                title: 'Trondol Bumper Belakang',
+                icon: 'fas fa-minus-circle',
+                content: `
+                    <div class="info-box">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 
+                        <strong>Perhatian:</strong> Fitur ini akan menghilangkan bumper belakang mobil yang dipilih.
+                    </div>
+                    <p>Fitur ini akan mengubah nilai bumper belakang mobil menjadi -9 yang membuatnya tidak terlihat pada mobil.</p>
+                    
+                    <h5 class="mt-4">Pilih Mobil untuk Diedit:</h5>
+                    <div class="selection-controls">
+                        <button id="modalSelectAllCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalInvertSelectionBtn" class="btn btn-sm btn-outline-warning">Balik Pilihan</button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedCount">0</span> dari <span id="modalTotalCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="car-list-container">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalCarList" class="list-group">
+                            <!-- Car list will be populated here -->
+                        </div>
+                    </div>
+                `
+            },
+            bothBumpers: {
+                title: 'Trondol Bumper Depan & Belakang',
+                icon: 'fas fa-minus-circle',
+                content: `
+                    <div class="info-box">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 
+                        <strong>Perhatian:</strong> Fitur ini akan menghilangkan bumper depan dan belakang mobil yang dipilih.
+                    </div>
+                    <p>Fitur ini akan mengubah nilai kedua bumper mobil menjadi -9 yang membuatnya tidak terlihat pada mobil.</p>
+                    
+                    <h5 class="mt-4">Pilih Mobil untuk Diedit:</h5>
+                    <div class="selection-controls">
+                        <button id="modalSelectAllCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalInvertSelectionBtn" class="btn btn-sm btn-outline-warning">Balik Pilihan</button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedCount">0</span> dari <span id="modalTotalCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="car-list-container">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalCarList" class="list-group">
+                            <!-- Car list will be populated here -->
+                        </div>
+                    </div>
+                `
+            },
+            roofRack: {
+                title: 'Edit Roof',
+                icon: 'fas fa-arrow-up',
+                content: `
+                    <div class="mb-3">
+                        <label for="modalRoof" class="form-label">Kode Roof</label>
+                        <input type="number" class="form-control" id="modalRoof" min="-2" max="99" value="24">
+                        <small class="form-text text-muted">Nilai -2 akan menghilangkan roof, sedangkan nilai positif akan menampilkan roof dengan kode tersebut.</small>
+                    </div>
+                    <div class="info-box">
+                        <i class="fas fa-info-circle me-2"></i> 
+                        <strong>Info:</strong> Masukkan kode roof yang valid (antara -2 hingga 99).
+                    </div>
+                    
+                    <h5 class="mt-4">Pilih Mobil untuk Diedit:</h5>
+                    <div class="selection-controls">
+                        <button id="modalSelectAllCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalInvertSelectionBtn" class="btn btn-sm btn-outline-warning">Balik Pilihan</button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedCount">0</span> dari <span id="modalTotalCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="car-list-container">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalCarList" class="list-group">
+                            <!-- Car list will be populated here -->
+                        </div>
+                    </div>
+                `
+            },
+            unlockPolice: {
+                title: 'Unlock Police',
+                icon: 'fas fa-shield-alt',
+                content: `
+                    <div class="info-box">
+                        <i class="fas fa-info-circle me-2"></i> 
+                        <strong>Info:</strong> Fitur ini akan membuka akses ke mobil polisi yang terkunci.
+                    </div>
+                    <p>Mobil polisi yang sebelumnya tidak dapat digunakan akan menjadi tersedia untuk digunakan.</p>
+                    
+                    <h5 class="mt-4">Pilih Mobil untuk Diedit:</h5>
+                    <div class="selection-controls">
+                        <button id="modalSelectAllCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalInvertSelectionBtn" class="btn btn-sm btn-outline-warning">Balik Pilihan</button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedCount">0</span> dari <span id="modalTotalCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="car-list-container">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalCarList" class="list-group">
+                            <!-- Car list will be populated here -->
+                        </div>
+                    </div>
+                `
+            },
+            customEngine: {
+                title: 'Custom Engine',
+                icon: 'fas fa-cogs',
+                content: `
+                    <div class="engine-inputs">
+                        <div class="engine-input-group">
+                            <label for="modalEngineHp" class="form-label">HP</label>
+                            <input type="number" class="form-control" id="modalEngineHp" min="0" max="9999" value="300">
+                        </div>
+                        <div class="engine-input-group">
+                            <label for="modalEngineInnerHp" class="form-label">Inner HP</label>
+                            <input type="number" class="form-control" id="modalEngineInnerHp" min="0" max="9999" value="7000">
+                        </div>
+                        <div class="engine-input-group">
+                            <label for="modalEngineNm" class="form-label">NM</label>
+                            <input type="number" class="form-control" id="modalEngineNm" min="0" max="9999" value="2299">
+                        </div>
+                        <div class="engine-input-group">
+                            <label for="modalEngineInnerNm" class="form-label">Inner NM</label>
+                            <input type="number" class="form-control" id="modalEngineInnerNm" min="0" max="9999" value="6799">
+                        </div>
+                        <div class="engine-input-group">
+                            <label for="modalEngineGrip" class="form-label">Grip</label>
+                            <input type="number" class="form-control" id="modalEngineGrip" min="0" max="9999" value="100">
+                        </div>
+                    </div>
+                    <div class="info-box mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 
+                        <strong>Perhatian:</strong> Nilai yang terlalu tinggi dapat menyebabkan mobil tidak stabil atau masalah lainnya.
+                    </div>
+                    
+                    <h5 class="mt-4">Pilih Mobil untuk Diedit:</h5>
+                    <div class="selection-controls">
+                        <button id="modalSelectAllCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalInvertSelectionBtn" class="btn btn-sm btn-outline-warning">Balik Pilihan</button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedCount">0</span> dari <span id="modalTotalCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="car-list-container">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalCarList" class="list-group">
+                            <!-- Car list will be populated here -->
+                        </div>
+                    </div>
+                `
+            },
+            customSteering: {
+                title: 'Custom Steering Angle',
+                icon: 'fas fa-location-arrow',
+                content: `
+                    <div class="steering-options">
+                        <div class="steering-option">
+                            <input type="radio" id="modalSteering40" name="modalSteeringAngle" value="40" checked>
+                            <label for="modalSteering40">
+                                <i class="fas fa-angle-double-right"></i>
+                                <div>40°</div>
+                                <small>Sudut kemudi standar</small>
+                            </label>
+                        </div>
+                        <div class="steering-option">
+                            <input type="radio" id="modalSteering60" name="modalSteeringAngle" value="60">
+                            <label for="modalSteering60">
+                                <i class="fas fa-angle-double-right"></i>
+                                <div>60°</div>
+                                <small>Sudut kemudi sedang</small>
+                            </label>
+                        </div>
+                        <div class="steering-option">
+                            <input type="radio" id="modalSteering90" name="modalSteeringAngle" value="90">
+                            <label for="modalSteering90">
+                                <i class="fas fa-angle-double-right"></i>
+                                <div>90°</div>
+                                <small>Sudut kemudi maksimal</small>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="info-box mt-3">
+                        <i class="fas fa-info-circle me-2"></i> 
+                        <strong>Info:</strong> Sudut kemudi yang lebih besar memungkinkan mobil berbelok lebih tajam, tetapi dapat mempengaruhi handling.
+                    </div>
+                    
+                    <h5 class="mt-4">Pilih Mobil untuk Diedit:</h5>
+                    <div class="selection-controls">
+                        <button id="modalSelectAllCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalInvertSelectionBtn" class="btn btn-sm btn-outline-warning">Balik Pilihan</button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedCount">0</span> dari <span id="modalTotalCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="car-list-container">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalCarList" class="list-group">
+                            <!-- Car list will be populated here -->
+                        </div>
+                    </div>
+                `
+            },
+            customChrome: {
+                title: 'Custom Chrome Body',
+                icon: 'fas fa-palette',
+                content: `
+                    <div class="chrome-options">
+                        <div class="chrome-option">
+                            <input type="radio" id="modalChromeFirst" name="modalChromeOption" value="first" checked>
+                            <label for="modalChromeFirst">
+                                <i class="fas fa-circle"></i>
+                                <div>Chrome V1</div>
+                            </label>
+                        </div>
+                        <div class="chrome-option">
+                            <input type="radio" id="modalChromeSecond" name="modalChromeOption" value="second">
+                            <label for="modalChromeSecond">
+                                <i class="fas fa-circle"></i>
+                                <div>Chrome V2</div>
+                            </label>
+                        </div>
+                        <div class="chrome-option">
+                            <input type="radio" id="modalChromeBoth" name="modalChromeOption" value="both">
+                            <label for="modalChromeBoth">
+                                <i class="fas fa-circle"></i>
+                                <div>Chrome Combo</div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="chrome-value-container">
+                        <div class="chrome-value-label">
+                            <span>Nilai Chrome</span>
+                            <span class="chrome-value-display" id="modalChromeValueDisplay">2.0</span>
+                        </div>
+                        <input type="range" class="chrome-slider" id="modalChromeValueSlider" min="0" max="10" step="0.1" value="2">
+                        <div class="d-flex justify-content-between">
+                            <small>0.0 (Matikan)</small>
+                            <small>5.0 (Normal)</small>
+                            <small>10.0 (Maksimal)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="chrome-modes">
+                        <div class="chrome-mode">
+                            <input type="radio" id="modalChromeDark" name="modalChromeMode" value="dark" checked>
+                            <label for="modalChromeDark">
+                                <i class="fas fa-moon"></i>
+                                <div>Mode Gelap</div>
+                                <small>Chrome berwarna gelap</small>
+                            </label>
+                        </div>
+                        <div class="chrome-mode">
+                            <input type="radio" id="modalChromeLight" name="modalChromeMode" value="light">
+                            <label for="modalChromeLight">
+                                <i class="fas fa-sun"></i>
+                                <div>Mode Terang</div>
+                                <small>Chrome berwarna terang</small>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="chrome-preview">
+                        <div class="chrome-preview-title">Preview Chrome</div>
+                        <div class="chrome-preview-box" id="modalChromePreviewBox"></div>
+                    </div>
+                    
+                    <div class="info-box mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 
+                        <strong>Perhatian:</strong> Nilai chrome yang terlalu tinggi dapat menyebabkan mobil terlihat tidak natural. Gunakan dengan bijak.
+                    </div>
+                    
+                    <h5 class="mt-4">Pilih Mobil untuk Diedit:</h5>
+                    <div class="selection-controls">
+                        <button id="modalSelectAllCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalInvertSelectionBtn" class="btn btn-sm btn-outline-warning">Balik Pilihan</button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedCount">0</span> dari <span id="modalTotalCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="car-list-container">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalCarList" class="list-group">
+                            <!-- Car list will be populated here -->
+                        </div>
+                    </div>
+                `
+            },
+            injectCars: {
+                title: 'Inject Cars',
+                icon: 'fas fa-exchange-alt',
+                content: `
+                    <div class="inject-options">
+                        <div class="inject-option">
+                            <input type="radio" id="modalModToOri" name="modalInjectDirection" value="mod_to_ori" checked>
+                            <label for="modalModToOri">
+                                <i class="fas fa-arrow-left"></i>
+                                <div>Mod ke ORI</div>
+                                <small>Ubah mobil modifikasi menjadi mobil original</small>
+                            </label>
+                        </div>
+                        <div class="inject-option">
+                            <input type="radio" id="modalOriToMod" name="modalInjectDirection" value="ori_to_mod">
+                            <label for="modalOriToMod">
+                                <i class="fas fa-arrow-right"></i>
+                                <div>ORI ke Mod</div>
+                                <small>Ubah mobil original menjadi mobil modifikasi</small>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="selection-controls mt-4">
+                        <button id="modalSelectAllInjectCarsBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllInjectCarsBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalRefreshInjectCarsBtn" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-sync-alt me-1"></i> Refresh
+                        </button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedInjectCount">0</span> dari <span id="modalTotalInjectCount">0</span> mobil dipilih
+                    </div>
+                    
+                    <div class="inject-car-list">
+                        <div class="car-list-header">
+                            <h5>Daftar Mobil</h5>
+                            <div class="car-count">Total: <span id="modalTotalInjectCarsCount">0</span> mobil</div>
+                        </div>
+                        <div id="modalInjectCarList" class="list-group">
+                            <!-- Inject car list will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="info-box mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 
+                        <strong>Perhatian:</strong> Pilih mobil yang ingin di-inject. Mobil yang dipilih akan diubah sesuai arah yang dipilih (Mod ke ORI atau ORI ke Mod).
+                    </div>
+                `
+            },
+            injectLivery: {
+                title: 'Inject Livery',
+                icon: 'fas fa-palette',
+                content: `
+                    <div class="selection-controls mt-4">
+                        <button id="modalSelectAllLiveryBtn" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
+                        <button id="modalDeselectAllLiveryBtn" class="btn btn-sm btn-outline-secondary">Batal Pilih Semua</button>
+                        <button id="modalRefreshLiveryBtn" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-sync-alt me-1"></i> Refresh
+                        </button>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="modalSelectedLiveryCount">0</span> dari <span id="modalTotalLiveryCount">0</span> livery dipilih
+                    </div>
+                    
+                    <div class="inject-car-list">
+                        <div class="car-list-header">
+                            <h5>Daftar Livery</h5>
+                            <div class="car-count">Total: <span id="modalTotalLiveryCount">0</span> livery</div>
+                        </div>
+                        <div id="modalLiveryList" class="list-group">
+                            <!-- Livery list will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="info-box mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 
+                        <strong>Perhatian:</strong> Pilih livery yang ingin di-inject. Livery yang dipilih akan diterapkan ke mobil.
+                    </div>
+                `
+            }
+        };
+
+        // Notification function
+        function showNotification(title, message, type = 'info', autoHide = true, duration = 4000) {
+            const notification = document.getElementById('notification');
+            const notificationTitle = document.getElementById('notificationTitle');
+            const notificationMessage = document.getElementById('notificationMessage');
+            
+            // Set notification content
+            notificationTitle.textContent = title;
+            notificationMessage.textContent = message;
+            
+            // Set notification type
+            notification.className = `notification ${type}-notification`;
+            
+            // Set icon based on type
+            const iconElement = notificationTitle.querySelector('i');
+            if (iconElement) {
+                iconElement.className = '';
+                switch(type) {
+                    case 'success':
+                        iconElement.className = 'fas fa-check-circle';
+                        break;
+                    case 'error':
+                        iconElement.className = 'fas fa-exclamation-circle';
+                        break;
+                    case 'warning':
+                        iconElement.className = 'fas fa-exclamation-triangle';
+                        break;
+                    default:
+                        iconElement.className = 'fas fa-info-circle';
+                }
+            }
+            
+            // Show notification
+            notification.style.display = 'block';
+            
+            // Auto hide if specified
+            if (autoHide) {
+                setTimeout(() => { 
+                    notification.style.animation = 'slideOut 0.5s ease forwards';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                        notification.style.animation = '';
+                    }, 500);
+                }, duration);
+            }
+        }
+
+        // Close notification when clicking the close button
+        document.getElementById('notificationClose').addEventListener('click', function() {
+            const notification = document.getElementById('notification');
+            notification.style.animation = 'slideOut 0.5s ease forwards';
+            setTimeout(() => {
+                notification.style.display = 'none';
+                notification.style.animation = '';
+            }, 500);
+        });
+
+        // Close notification when clicking on it
+        document.getElementById('notification').addEventListener('click', function() {
+            const notification = document.getElementById('notification');
+            notification.style.animation = 'slideOut 0.5s ease forwards';
+            setTimeout(() => {
+                notification.style.display = 'none';
+                notification.style.animation = '';
+            }, 500);
+        });
+
+        // Modal functions
+        function openModal(feature) {
+            const modal = document.getElementById('featureModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalBody = document.getElementById('modalBody');
+            
+            // Set modal content based on feature
+            if (featureTemplates[feature]) {
+                modalTitle.textContent = featureTemplates[feature].title;
+                modalIcon.className = featureTemplates[feature].icon;
+                modalBody.innerHTML = featureTemplates[feature].content;
+                
+                // Store current feature
+                modal.dataset.feature = feature;
+                
+                // Show modal
+                modal.style.display = 'block';
+                
+                // Initialize feature-specific elements
+                if (feature === 'customChrome') {
+                    initModalChrome();
+                } else if (feature === 'injectCars') {
+                    loadModalInjectCars();
+                } else if (feature === 'injectLivery') {
+                    loadModalInjectLivery();
+                } else if (feature !== 'login') {
+                    // For all features except login, load cars
+                    loadModalCars();
+                }
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('featureModal');
+            modal.style.display = 'none';
+        }
+
+        function initModalChrome() {
+            const slider = document.getElementById('modalChromeValueSlider');
+            const display = document.getElementById('modalChromeValueDisplay');
+            const previewBox = document.getElementById('modalChromePreviewBox');
+            
+            // Set initial values
+            slider.value = editData.chrome.value;
+            display.textContent = editData.chrome.value.toFixed(1);
+            
+            // Set initial radio buttons
+            document.querySelector(`input[name="modalChromeOption"][value="${editData.chrome.option}"]`).checked = true;
+            document.querySelector(`input[name="modalChromeMode"][value="${editData.chrome.mode}"]`).checked = true;
+            
+            // Update preview
+            updateModalChromePreview();
+            
+            // Add event listeners
+            slider.addEventListener('input', function() {
+                editData.chrome.value = parseFloat(this.value);
+                display.textContent = editData.chrome.value.toFixed(1);
+                updateModalChromePreview();
+            });
+            
+            document.querySelectorAll('input[name="modalChromeOption"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    editData.chrome.option = this.value;
+                    updateModalChromePreview();
+                });
+            });
+            
+            document.querySelectorAll('input[name="modalChromeMode"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    editData.chrome.mode = this.value;
+                    updateModalChromePreview();
+                });
+            });
+        }
+
+        function updateModalChromePreview() {
+            const previewBox = document.getElementById('modalChromePreviewBox');
+            const value = editData.chrome.value;
+            const mode = editData.chrome.mode;
+            
+            // Calculate color based on value and mode
+            let color;
+            if (mode === 'dark') {
+                // Dark mode: from black to silver
+                const intensity = value / 10; // Normalize to 0-1
+                const r = Math.round(50 + intensity * 150);
+                const g = Math.round(50 + intensity * 150);
+                const b = Math.round(50 + intensity * 150);
+                color = `rgb(${r}, ${g}, ${b})`;
+            } else {
+                // Light mode: from white to bright silver
+                const intensity = value / 10; // Normalize to 0-1
+                const r = Math.round(200 + intensity * 55);
+                const g = Math.round(200 + intensity * 55);
+                const b = Math.round(200 + intensity * 55);
+                color = `rgb(${r}, ${g}, ${b})`;
+            }
+            
+            previewBox.style.background = color;
+            
+            // Add gradient effect based on value
+            if (value > 5) {
+                const gradientIntensity = (value - 5) / 5; // Normalize to 0-1
+                const gradientColor = mode === 'dark' 
+                    ? `rgba(255, 255, 255, ${gradientIntensity * 0.3})`
+                    : `rgba(100, 100, 255, ${gradientIntensity * 0.3})`;
+                previewBox.style.background = `linear-gradient(135deg, ${color} 0%, ${gradientColor} 100%)`;
+            }
+        }
+
+        async function loadModalCars() {
+            try {
+                const formData = new FormData();
+                formData.append('action', 'get_cars');
+
+                const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                if (result.success) {
+                    carsData = result.cars;
+                    updateModalCarListUI();
+                } else {
+                    showNotification('Error', result.message || 'Gagal mengunduh data mobil.', 'error');
+                }
+            } catch (error) {
+                console.error('Load Cars Error:', error);
+                showNotification('Error', 'Gagal memuat data mobil.', 'error');
+            }
+        }
+
+        function updateModalCarListUI() {
+            const carListEl = document.getElementById('modalCarList');
+            if (!carListEl) return; // Exit if car list element doesn't exist
+            
+            carListEl.innerHTML = '';
+            
+            carsData.forEach((car, index) => {
+                const carItem = document.createElement('div');
+                carItem.className = 'car-item list-group-item';
+                if (selectedCars.has(index)) {
+                    carItem.classList.add('selected');
+                }
+                
+                // Try to get car name, fallback to CarID if not available
+                const carName = car.Name || car.CarName || `Mobil #${car.CarID || index}`;
+                
+                carItem.innerHTML = `
+                    <div class="car-item-info">
+                        <input type="checkbox" class="form-check-input modal-car-item-checkbox" data-index="${index}" ${selectedCars.has(index) ? 'checked' : ''}>
+                        <div class="car-item-details">
+                            <div class="car-item-id">Code Cars : ${car.CarID || 'N/A'}</div>
+                            <div class="car-item-name">${carName}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="badge bg-primary">Ready</span>
+                    </div>
+                `;
+                
+                // Add click event to checkbox
+                const checkbox = carItem.querySelector('.modal-car-item-checkbox');
+                checkbox.addEventListener('change', function() {
+                    const carIndex = parseInt(this.dataset.index);
+                    if (this.checked) {
+                        selectedCars.add(carIndex);
+                        carItem.classList.add('selected');
+                    } else {
+                        selectedCars.delete(carIndex);
+                        carItem.classList.remove('selected');
+                    }
+                    updateModalSelectionSummary();
+                });
+                
+                // Add click event to car item (toggle selection)
+                carItem.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                });
+                
+                carListEl.appendChild(carItem);
+            });
+            
+            // Update counts
+            const totalCarsCountEl = document.getElementById('modalTotalCarsCount');
+            if (totalCarsCountEl) {
+                totalCarsCountEl.textContent = carsData.length;
+            }
+            updateModalSelectionSummary();
+            
+            // Add event listeners to control buttons
+            const selectAllBtn = document.getElementById('modalSelectAllCarsBtn');
+            const deselectAllBtn = document.getElementById('modalDeselectAllCarsBtn');
+            const invertSelectionBtn = document.getElementById('modalInvertSelectionBtn');
+            
+            if (selectAllBtn) {
+                selectAllBtn.addEventListener('click', function() {
+                    selectedCars.clear();
+                    for (let i = 0; i < carsData.length; i++) {
+                        selectedCars.add(i);
+                    }
+                    updateModalCarListUI();
+                });
+            }
+            
+            if (deselectAllBtn) {
+                deselectAllBtn.addEventListener('click', function() {
+                    selectedCars.clear();
+                    updateModalCarListUI();
+                });
+            }
+            
+            if (invertSelectionBtn) {
+                invertSelectionBtn.addEventListener('click', function() {
+                    const newSelection = new Set();
+                    for (let i = 0; i < carsData.length; i++) {
+                        if (!selectedCars.has(i)) {
+                            newSelection.add(i);
+                        }
+                    }
+                    selectedCars = newSelection;
+                    updateModalCarListUI();
+                });
+            }
+        }
+
+        function updateModalSelectionSummary() {
+            const selectedCountEl = document.getElementById('modalSelectedCount');
+            const totalCountEl = document.getElementById('modalTotalCount');
+            
+            if (selectedCountEl) {
+                selectedCountEl.textContent = selectedCars.size;
+            }
+            
+            if (totalCountEl) {
+                totalCountEl.textContent = carsData.length;
+            }
+            
+            // Enable apply button if cars are selected
+            const applyBtn = document.getElementById('modalApply');
+            if (applyBtn) {
+                applyBtn.disabled = selectedCars.size === 0;
+            }
+        }
+
+        async function loadModalInjectCars() {
+            try {
+                const formData = new FormData();
+                formData.append('action', 'get_car_files');
+                formData.append('direction', editData.injectDirection);
+
+                const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                if (result.success) {
+                    injectCarFiles = result.carFiles;
+                    selectedInjectCars.clear();
+                    updateModalInjectCarListUI();
+                } else {
+                    showNotification('Error', result.error || 'Gagal memuat file mobil.', 'error');
+                }
+            } catch (error) {
+                console.error('Load Inject Cars Error:', error);
+                showNotification('Error', 'Gagal memuat file mobil.', 'error');
+            }
+        }
+
+        function updateModalInjectCarListUI() {
+            const injectCarListEl = document.getElementById('modalInjectCarList');
+            if (!injectCarListEl) return; // Exit if inject car list element doesn't exist
+            
+            injectCarListEl.innerHTML = '';
+            
+            injectCarFiles.forEach((filename, index) => {
+                const carItem = document.createElement('div');
+                carItem.className = 'inject-car-item list-group-item';
+                if (selectedInjectCars.has(index)) {
+                    carItem.classList.add('selected');
+                }
+                
+                // Extract car ID from filename
+                const carId = filename.replace(/\.[^/.]+$/, "");
+                
+                carItem.innerHTML = `
+                    <div class="inject-car-info">
+                        <input type="checkbox" class="form-check-input modal-inject-car-checkbox" data-index="${index}" ${selectedInjectCars.has(index) ? 'checked' : ''}>
+                        <div class="inject-car-details">
+                            <div class="inject-car-id">ID Mobil: ${carId}</div>
+                            <div class="inject-car-name">File: ${filename}</div>
+                        </div>
+                    </div>
+                    <div class="inject-car-status">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                `;
+                
+                // Add click event to checkbox
+                const checkbox = carItem.querySelector('.modal-inject-car-checkbox');
+                checkbox.addEventListener('change', function() {
+                    const carIndex = parseInt(this.dataset.index);
+                    if (this.checked) {
+                        selectedInjectCars.add(carIndex);
+                        carItem.classList.add('selected');
+                    } else {
+                        selectedInjectCars.delete(carIndex);
+                        carItem.classList.remove('selected');
+                    }
+                    updateModalInjectSelectionSummary();
+                });
+                
+                // Add click event to car item (toggle selection)
+                carItem.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                });
+                
+                injectCarListEl.appendChild(carItem);
+            });
+            
+            // Update counts
+            const totalInjectCarsCountEl = document.getElementById('modalTotalInjectCarsCount');
+            if (totalInjectCarsCountEl) {
+                totalInjectCarsCountEl.textContent = injectCarFiles.length;
+            }
+            updateModalInjectSelectionSummary();
+            
+            // Add event listeners to control buttons
+            const selectAllBtn = document.getElementById('modalSelectAllInjectCarsBtn');
+            const deselectAllBtn = document.getElementById('modalDeselectAllInjectCarsBtn');
+            const refreshBtn = document.getElementById('modalRefreshInjectCarsBtn');
+            
+            if (selectAllBtn) {
+                selectAllBtn.addEventListener('click', function() {
+                    selectedInjectCars.clear();
+                    for (let i = 0; i < injectCarFiles.length; i++) {
+                        selectedInjectCars.add(i);
+                    }
+                    updateModalInjectCarListUI();
+                });
+            }
+            
+            if (deselectAllBtn) {
+                deselectAllBtn.addEventListener('click', function() {
+                    selectedInjectCars.clear();
+                    updateModalInjectCarListUI();
+                });
+            }
+            
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    loadModalInjectCars();
+                });
+            }
+            
+            // Add event listener to inject direction radio buttons
+            document.querySelectorAll('input[name="modalInjectDirection"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    editData.injectDirection = this.value;
+                    loadModalInjectCars();
+                });
+            });
+        }
+
+        function updateModalInjectSelectionSummary() {
+            const selectedCountEl = document.getElementById('modalSelectedInjectCount');
+            const totalCountEl = document.getElementById('modalTotalInjectCount');
+            
+            if (selectedCountEl) {
+                selectedCountEl.textContent = selectedInjectCars.size;
+            }
+            
+            if (totalCountEl) {
+                totalCountEl.textContent = injectCarFiles.length;
+            }
+            
+            // Enable apply button if inject cars are selected
+            const applyBtn = document.getElementById('modalApply');
+            if (applyBtn) {
+                applyBtn.disabled = selectedInjectCars.size === 0;
+            }
+        }
+
+        async function loadModalInjectLivery() {
+            try {
+                const formData = new FormData();
+                formData.append('action', 'get_livery_files');
+
+                const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                if (result.success) {
+                    liveryFiles = result.liveryFiles;
+                    selectedLivery.clear();
+                    updateModalLiveryListUI();
+                } else {
+                    showNotification('Error', result.error || 'Gagal memuat file livery.', 'error');
+                }
+            } catch (error) {
+                console.error('Load Livery Files Error:', error);
+                showNotification('Error', 'Gagal memuat file livery.', 'error');
+            }
+        }
+
+        function updateModalLiveryListUI() {
+            const liveryListEl = document.getElementById('modalLiveryList');
+            if (!liveryListEl) return; // Exit if livery list element doesn't exist
+            
+            liveryListEl.innerHTML = '';
+            
+            liveryFiles.forEach((filename, index) => {
+                const liveryItem = document.createElement('div');
+                liveryItem.className = 'livery-item list-group-item';
+                if (selectedLivery.has(index)) {
+                    liveryItem.classList.add('selected');
+                }
+                
+                // Extract livery ID from filename
+                const liveryId = filename.replace(/\.[^/.]+$/, "");
+                
+                liveryItem.innerHTML = `
+                    <div class="livery-info">
+                        <input type="checkbox" class="form-check-input modal-livery-checkbox" data-index="${index}" ${selectedLivery.has(index) ? 'checked' : ''}>
+                        <div class="livery-details">
+                            <div class="livery-id">ID Livery: ${liveryId}</div>
+                            <div class="livery-name">File: ${filename}</div>
+                        </div>
+                    </div>
+                    <div class="livery-status">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                `;
+                
+                // Add click event to checkbox
+                const checkbox = liveryItem.querySelector('.modal-livery-checkbox');
+                checkbox.addEventListener('change', function() {
+                    const liveryIndex = parseInt(this.dataset.index);
+                    if (this.checked) {
+                        selectedLivery.add(liveryIndex);
+                        liveryItem.classList.add('selected');
+                    } else {
+                        selectedLivery.delete(liveryIndex);
+                        liveryItem.classList.remove('selected');
+                    }
+                    updateModalLiverySelectionSummary();
+                });
+                
+                // Add click event to livery item (toggle selection)
+                liveryItem.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                });
+                
+                liveryListEl.appendChild(liveryItem);
+            });
+            
+            // Update counts
+            const totalLiveryCountEl = document.getElementById('modalTotalLiveryCount');
+            if (totalLiveryCountEl) {
+                totalLiveryCountEl.textContent = liveryFiles.length;
+            }
+            updateModalLiverySelectionSummary();
+            
+            // Add event listeners to control buttons
+            const selectAllBtn = document.getElementById('modalSelectAllLiveryBtn');
+            const deselectAllBtn = document.getElementById('modalDeselectAllLiveryBtn');
+            const refreshBtn = document.getElementById('modalRefreshLiveryBtn');
+            
+            if (selectAllBtn) {
+                selectAllBtn.addEventListener('click', function() {
+                    selectedLivery.clear();
+                    for (let i = 0; i < liveryFiles.length; i++) {
+                        selectedLivery.add(i);
+                    }
+                    updateModalLiveryListUI();
+                });
+            }
+            
+            if (deselectAllBtn) {
+                deselectAllBtn.addEventListener('click', function() {
+                    selectedLivery.clear();
+                    updateModalLiveryListUI();
+                });
+            }
+            
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    loadModalInjectLivery();
+                });
+            }
+        }
+
+        function updateModalLiverySelectionSummary() {
+            const selectedCountEl = document.getElementById('modalSelectedLiveryCount');
+            const totalCountEl = document.getElementById('modalTotalLiveryCount');
+            
+            if (selectedCountEl) {
+                selectedCountEl.textContent = selectedLivery.size;
+            }
+            
+            if (totalCountEl) {
+                totalCountEl.textContent = liveryFiles.length;
+            }
+            
+            // Enable apply button if livery are selected
+            const applyBtn = document.getElementById('modalApply');
+            if (applyBtn) {
+                applyBtn.disabled = selectedLivery.size === 0;
+            }
+        }
+
+        function setLoginState(isLoggedIn) {
+            document.getElementById('editorStatusText').textContent = isLoggedIn ? 'Pilih menu edit dan mobil yang ingin diedit. Anda wajib logout akun terlebih dahulu' : 'Tools siap digunakan.';
+            
+            if (!isLoggedIn) {
+                carsData = [];
+                selectedCars.clear();
+            }
+        }
+
+        // Navigation handlers
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const section = this.dataset.section;
+                showSection(section);
+                
+                // Update active nav item
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // Function to show/hide sections
+        function showSection(section) {
+            // Hide all sections
+            document.getElementById('toolsSection').style.display = 'none';
+            document.getElementById('kingSection').style.display = 'none';
+            document.getElementById('achievementSection').style.display = 'none';
+            
+            // Show the selected section
+            if (section === 'tools') {
+                document.getElementById('toolsSection').style.display = 'block';
+            } else if (section === 'king') {
+                document.getElementById('kingSection').style.display = 'block';
+            } else if (section === 'achievement') {
+                document.getElementById('achievementSection').style.display = 'block';
+            }
+        }
+
+        // Handle menu item clicks with modal
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Don't open modal if clicking on input
+                if (e.target.tagName === 'INPUT') {
+                    return;
+                }
+                
+                // Get feature from data attribute
+                const feature = this.dataset.feature;
+                
+                // Open modal with feature content
+                openModal(feature);
+            });
+        });
+
+        // Modal event listeners
+        document.getElementById('modalClose').addEventListener('click', closeModal);
+        document.getElementById('modalCancel').addEventListener('click', closeModal);
+        
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('featureModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Handle modal apply button
+        document.getElementById('modalApply').addEventListener('click', async function() {
+            const modal = document.getElementById('featureModal');
+            const feature = modal.dataset.feature;
+            
+            // Get values from modal inputs
+            if (feature === 'login') {
+                const email = document.getElementById('modalEmail').value;
+                const password = document.getElementById('modalPassword').value;
+                
+                if (!email || !password) {
+                    showNotification('Error', 'Email dan password harus diisi!', 'error');
+                    return;
+                }
+                
+                // Perform login
+                try {
+                    const formData = new FormData();
+                    formData.append('action', 'login');
+                    formData.append('email', email);
+                    formData.append('password', password);
+
+                    const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showNotification('Sukses', 'Login berhasil! Mengunduh data mobil...', 'success');
+                        setLoginState(true);
+                        closeModal();
+                    } else {
+                        showNotification('Error', result.message || 'Login gagal!', 'error');
+                        setLoginState(false);
+                    }
+                } catch (error) {
+                    console.error('Login Error:', error);
+                    showNotification('Error', 'Terjadi kesalahan saat mencoba login.', 'error');
+                    setLoginState(false);
+                }
+            } else if (feature === 'roofRack') {
+                editData.roof = parseInt(document.getElementById('modalRoof').value) || -2;
+                closeModal();
+                showNotification('Info', `Nilai roof diubah menjadi ${editData.roof}`, 'info');
+            } else if (feature === 'customEngine') {
+                editData.engine.hp = parseInt(document.getElementById('modalEngineHp').value) || 0;
+                editData.engine.innerHp = parseInt(document.getElementById('modalEngineInnerHp').value) || 0;
+                editData.engine.nm = parseInt(document.getElementById('modalEngineNm').value) || 0;
+                editData.engine.innerNm = parseInt(document.getElementById('modalEngineInnerNm').value) || 0;
+                editData.engine.grip = parseInt(document.getElementById('modalEngineGrip').value) || 0;
+                closeModal();
+                showNotification('Info', 'Pengaturan mesin kustom telah disimpan', 'info');
+            } else if (feature === 'customSteering') {
+                const selectedSteering = document.querySelector('input[name="modalSteeringAngle"]:checked');
+                editData.steering = parseInt(selectedSteering.value);
+                closeModal();
+                showNotification('Info', `Sudut kemudi diubah menjadi ${editData.steering}°`, 'info');
+            } else if (feature === 'customChrome') {
+                // Values are already updated in editData during input changes
+                closeModal();
+                showNotification('Info', 'Pengaturan chrome body kustom telah disimpan', 'info');
+            } else if (feature === 'injectCars') {
+                if (selectedInjectCars.size === 0) {
+                    showNotification('Error', 'Pilih setidaknya satu mobil untuk di-inject.', 'error');
+                    return;
+                }
+                
+                try {
+                    // Get selected car IDs
+                    const selectedCarIds = [];
+                    for (const carIndex of selectedInjectCars) {
+                        // Extract car ID from filename
+                        const carId = injectCarFiles[carIndex].replace(/\.[^/.]+$/, "");
+                        selectedCarIds.push(carId);
+                    }
+                    
+                    const formData = new FormData();
+                    formData.append('action', 'inject_cars');
+                    formData.append('direction', editData.injectDirection);
+                    formData.append('selectedCarIds', JSON.stringify(selectedCarIds));
+
+                    const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showNotification('Sukses', result.message, 'success');
+                        closeModal();
+                    } else {
+                        showNotification('Error', result.error || 'Gagal melakukan inject mobil', 'error');
+                    }
+                } catch (error) {
+                    console.error('Inject Cars Error:', error);
+                    showNotification('Error', 'Terjadi kesalahan saat melakukan inject mobil', 'error');
+                }
+            } else if (feature === 'injectLivery') {
+                if (selectedLivery.size === 0) {
+                    showNotification('Error', 'Pilih setidaknya satu livery untuk di-inject.', 'error');
+                    return;
+                }
+                
+                try {
+                    // Get selected livery IDs
+                    const selectedLiveryIds = [];
+                    for (const liveryIndex of selectedLivery) {
+                        // Extract livery ID from filename
+                        const liveryId = liveryFiles[liveryIndex].replace(/\.[^/.]+$/, "");
+                        selectedLiveryIds.push(liveryId);
+                    }
+                    
+                    const formData = new FormData();
+                    formData.append('action', 'inject_livery');
+                    formData.append('selectedLiveryIds', JSON.stringify(selectedLiveryIds));
+
+                    const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showNotification('Sukses', result.message, 'success');
+                        closeModal();
+                    } else {
+                        showNotification('Error', result.error || 'Gagal melakukan inject livery', 'error');
+                    }
+                } catch (error) {
+                    console.error('Inject Livery Error:', error);
+                    showNotification('Error', 'Terjadi kesalahan saat inject livery', 'error');
+                }
+            } else if (selectedCars.size === 0) {
+                showNotification('Error', 'Pilih setidaknya satu mobil untuk diedit.', 'error');
+                return;
+            } else {
+                // Process other features
+                currentEditSection = feature;
+                
+                const spinner = document.createElement('span');
+                spinner.className = 'spinner-border spinner-border-sm me-2';
+                spinner.setAttribute('role', 'status');
+                spinner.setAttribute('aria-hidden', 'true');
+                
+                const btn = document.getElementById('modalApply');
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = '';
+                btn.appendChild(spinner);
+                btn.appendChild(document.createTextNode('Memproses...'));
+                btn.disabled = true;
+                
+                let successCount = 0;
+                let failCount = 0;
+                
+                // Process edits one by one
+                for (const carIndex of selectedCars) {
+                    const car = carsData[carIndex];
+                    
+                    // Apply changes based on current edit section
+                    if (currentEditSection === 'frontBumper') {
+                        // Ensure typeToInstall array exists
+                        if (!car['typeToInstall'] || !Array.isArray(car['typeToInstall'])) {
+                            car['typeToInstall'] = [106, 5, 5, 5, 1, 24, 27, 5, 5, -2];
+                        }
+                        car['typeToInstall'][1] = editData.frontBumper;
+                    } else if (currentEditSection === 'rearBumper') {
+                        // Ensure typeToInstall array exists
+                        if (!car['typeToInstall'] || !Array.isArray(car['typeToInstall'])) {
+                            car['typeToInstall'] = [106, 5, 5, 5, 1, 24, 27, 5, 5, -2];
+                        }
+                        car['typeToInstall'][2] = editData.rearBumper;
+                    } else if (currentEditSection === 'bothBumpers') {
+                        // Ensure typeToInstall array exists
+                        if (!car['typeToInstall'] || !Array.isArray(car['typeToInstall'])) {
+                            car['typeToInstall'] = [106, 5, 5, 5, 1, 24, 27, 5, 5, -2];
+                        }
+                        // Apply the same value to both front and rear bumpers
+                        car['typeToInstall'][1] = editData.frontBumper;
+                        car['typeToInstall'][2] = editData.rearBumper;
+                    } else if (currentEditSection === 'roofRack') {
+                        // Ensure typeToInstall array exists
+                        if (!car['typeToInstall'] || !Array.isArray(car['typeToInstall'])) {
+                            car['typeToInstall'] = [106, 5, 5, 5, 1, 24, 27, 5, 5, -2];
+                        }
+                        // Apply the same value to both index 6 and 7
+                        car['typeToInstall'][5] = editData.roof;
+                        car['typeToInstall'][6] = editData.roof;
+                    } else if (currentEditSection === 'unlockPolice') {
+                        // Fix untuk unlock police - mengikuti logika dari kode PHP
+                        // Periksa apakah mobil memiliki array floats
+                        if (car['floats'] && Array.isArray(car['floats'])) {
+                            // Ubah nilai float untuk mengaktifkan police
+                            car['floats'][0] = 1;
+                        } else {
+                            // Jika tidak ada, buat array baru dengan nilai police
+                            car['floats'] = [1];
+                        }
+                    } else if (currentEditSection === 'customEngine') {
+                        // Apply engine settings
+                        car['engine_hp'] = editData.engine.hp;
+                        car['engine_inner_hp'] = editData.engine.innerHp;
+                        car['engine_nm'] = editData.engine.nm;
+                        car['engine_inner_nm'] = editData.engine.innerNm;
+                        car['engine_grip'] = editData.engine.grip;
+                    } else if (currentEditSection === 'customSteering') {
+                        // Apply steering angle
+                        car['steering_angle'] = editData.steering;
+                    } else if (currentEditSection === 'customChrome') {
+                        // Apply chrome settings
+                        car['chrome_value'] = editData.chrome.value;
+                        car['chrome_option'] = editData.chrome.option;
+                        car['chrome_mode'] = editData.chrome.mode;
+                        car['chrome_index1'] = editData.chrome.index1;
+                        car['chrome_index2'] = editData.chrome.index2;
+                    }
+                    
+                    try {
+                        const formData = new FormData();
+                        formData.append('action', 'save_car');
+                        formData.append('car_data', JSON.stringify(car));
+                        
+                        const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            successCount++;
+                        } else {
+                            failCount++;
+                            console.error(`Gagal menyimpan mobil ${car['CarID']}: ${result.message}`);
+                        }
+                    } catch (error) {
+                        failCount++;
+                        console.error(`Error menyimpan mobil ${car['CarID']}:`, error);
+                    }
+                }
+                
+                // Restore button
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                
+                if (failCount > 0) {
+                    showNotification('Peringatan', `Proses selesai dengan beberapa mobil gagal. Berhasil: ${successCount}, Gagal: ${failCount}.`, 'warning');
+                } else {
+                    showNotification('Sukses', `Oke Succes Bro !`, 'success');
+                    closeModal();
+                }
+            }
+        });
+
+        // Handle king apply button
+        document.getElementById('kingApplyBtn').addEventListener('click', async function() {
+            const email = document.getElementById('kingEmail').value;
+            const password = document.getElementById('kingPassword').value;
+            
+            if (!email || !password) {
+                showNotification('Error', 'Email dan password wajib diisi.', 'error');
+                return;
+            }
+
+            const spinner = document.getElementById('kingApplySpinner');
+            const btn = document.getElementById('kingApplyBtn');
+            const progressContainer = document.querySelector('.king-progress-container');
+            const progressBar = document.querySelector('.king-progress-container .progress-bar');
+            const progressText = document.getElementById('kingProgressText');
+
+            spinner.classList.remove('d-none');
+            btn.disabled = true;
+            progressContainer.style.display = 'block';
+
+            try {
+                // Simulate progress
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += 5;
+                    progressBar.style.width = `${progress}%`;
+                    progressText.textContent = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(progressInterval);
+                    }
+                }, 100);
+
+                const formData = new FormData();
+                formData.append('action', 'inject_king');
+                formData.append('email', email);
+                formData.append('password', password);
+
+                const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                const result = await response.json();
+                
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                progressText.textContent = '100%';
+                
+                if (result.success) {
+                    showNotification('Sukses', result.message, 'success');
+                } else {
+                    showNotification('Error', result.message || 'Gagal inject king', 'error');
+                }
+            } catch (error) {
+                console.error('Inject King Error:', error);
+                showNotification('Error', 'Terjadi kesalahan saat inject king', 'error');
+            } finally {
+                spinner.classList.add('d-none');
+                btn.disabled = false;
+                
+                // Hide progress after a delay
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                    progressBar.style.width = '0%';
+                    progressText.textContent = '0%';
+                }, 2000);
+            }
+        });
+
+        // Handle achievement apply button
+        document.getElementById('achievementApplyBtn').addEventListener('click', async function() {
+            const email = document.getElementById('achievementEmail').value;
+            const password = document.getElementById('achievementPassword').value;
+            
+            if (!email || !password) {
+                showNotification('Error', 'Email dan password wajib diisi.', 'error');
+                return;
+            }
+            
+            if (selectedAchievements.size === 0) {
+                showNotification('Error', 'Pilih setidaknya satu achievement untuk dibuka.', 'error');
+                return;
+            }
+
+            const spinner = document.getElementById('achievementApplySpinner');
+            const btn = document.getElementById('achievementApplyBtn');
+            const progressContainer = document.querySelector('.achievement-progress-container');
+            const progressBar = document.querySelector('.achievement-progress-container .progress-bar');
+            const progressText = document.getElementById('achievementProgressText');
+
+            spinner.classList.remove('d-none');
+            btn.disabled = true;
+            progressContainer.style.display = 'block';
+
+            try {
+                const selectedAchievementsArray = Array.from(selectedAchievements);
+                
+                // Update progress text with total count
+                progressText.textContent = `0/${selectedAchievementsArray.length}`;
+                
+                // Kirim semua achievement sekaligus menggunakan format yang sama dengan inject king
+                const formData = new FormData();
+                formData.append('action', 'set_multiple_achievements');
+                formData.append('email', email);
+                formData.append('password', password);
+                formData.append('achievementIds', JSON.stringify(selectedAchievementsArray));
+
+                // Simulate progress
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += 5;
+                    if (progress > 95) progress = 95; // Keep at 95% until complete
+                    progressBar.style.width = `${progress}%`;
+                    
+                    const current = Math.floor((progress / 100) * selectedAchievementsArray.length);
+                    progressText.textContent = `${current}/${selectedAchievementsArray.length}`;
+                    
+                    if (progress >= 95) {
+                        clearInterval(progressInterval);
+                    }
+                }, 100);
+
+                const response = await fetch(API_BASE_URL, { method: 'POST', body: formData });
+                const result = await response.json();
+                
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                progressText.textContent = `${selectedAchievementsArray.length}/${selectedAchievementsArray.length}`;
+                
+                if (result.success) {
+                    showNotification('Sukses', result.message, 'success');
+                } else {
+                    showNotification('Error', result.message || 'Gagal unlock achievement', 'error');
+                }
+            } catch (error) {
+                console.error('Achievement Error:', error);
+                showNotification('Error', 'Terjadi kesalahan saat unlock achievement', 'error');
+            } finally {
+                spinner.classList.add('d-none');
+                btn.disabled = false;
+                
+                // Hide progress after a delay
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                    progressBar.style.width = '0%';
+                    progressText.textContent = '0/0';
+                }, 2000);
+            }
+        });
+
+        // Initialize achievement list when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default state for tools section
+            setLoginState(false);
+            
+            // Initialize achievement list
+            const achievementListEl = document.getElementById('achievementList');
+            achievementListEl.innerHTML = '';
+            
+            achievementData.forEach((achievement, index) => {
+                const achievementItem = document.createElement('div');
+                achievementItem.className = 'achievement-checkbox-item list-group-item';
+                if (selectedAchievements.has(achievement.id)) {
+                    achievementItem.classList.add('selected');
+                }
+                
+                achievementItem.innerHTML = `
+                    <div class="achievement-info">
+                        <input type="checkbox" class="form-check-input achievement-checkbox" data-id="${achievement.id}" ${selectedAchievements.has(achievement.id) ? 'checked' : ''}>
+                        <div class="achievement-details">
+                            <div class="achievement-id">ID: ${achievement.id}</div>
+                            <div class="achievement-name">${achievement.name}</div>
+                            <div class="achievement-description">${achievement.description}</div>
+                        </div>
+                    </div>
+                    <div class="achievement-status">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                `;
+                
+                // Add click event to checkbox
+                const checkbox = achievementItem.querySelector('.achievement-checkbox');
+                checkbox.addEventListener('change', function() {
+                    const achievementId = this.dataset.id;
+                    if (this.checked) {
+                        selectedAchievements.add(achievementId);
+                        achievementItem.classList.add('selected');
+                    } else {
+                        selectedAchievements.delete(achievementId);
+                        achievementItem.classList.remove('selected');
+                    }
+                    updateAchievementSelectionSummary();
+                });
+                
+                // Add click event to achievement item (toggle selection)
+                achievementItem.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                });
+                
+                achievementListEl.appendChild(achievementItem);
+            });
+            
+            // Update counts
+            document.getElementById('totalAchievementsCount').textContent = achievementData.length;
+            document.getElementById('totalAchievementCount').textContent = achievementData.length;
+            updateAchievementSelectionSummary();
+        });
+        
+        function updateAchievementSelectionSummary() {
+            document.getElementById('selectedAchievementCount').textContent = selectedAchievements.size;
+            
+            // Enable apply button if achievement is selected and email/password are filled
+            document.getElementById('achievementApplyBtn').disabled = selectedAchievements.size === 0 || !document.getElementById('achievementEmail').value || !document.getElementById('achievementPassword').value;
+        }
+        
+        // Handle achievement selection control buttons
+        document.getElementById('selectAllAchievementsBtn').addEventListener('click', function() {
+            selectedAchievements.clear();
+            achievementData.forEach(achievement => {
+                selectedAchievements.add(achievement.id);
+            });
+            
+            // Update UI
+            document.querySelectorAll('.achievement-checkbox').forEach(checkbox => {
+                checkbox.checked = true;
+                checkbox.closest('.achievement-checkbox-item').classList.add('selected');
+            });
+            
+            updateAchievementSelectionSummary();
+        });
+
+        document.getElementById('deselectAllAchievementsBtn').addEventListener('click', function() {
+            selectedAchievements.clear();
+            
+            // Update UI
+            document.querySelectorAll('.achievement-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.closest('.achievement-checkbox-item').classList.remove('selected');
+            });
+            
+            updateAchievementSelectionSummary();
+        });
+        
+        // Handle achievement email/password changes
+        document.getElementById('achievementEmail').addEventListener('input', function() {
+            updateAchievementSelectionSummary();
+        });
+        
+        document.getElementById('achievementPassword').addEventListener('input', function() {
+            updateAchievementSelectionSummary();
+        });
+
+  </script>
+</body>
+</html>
