@@ -165,6 +165,27 @@ h1 span {
   transform: scale(1.1);
 }
 
+/* Skill section dengan progress bar animasi */
+        .skill {
+            margin-bottom: 20px;
+        }
+        .skill-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            width: 0%;
+            animation: fillBar 2s ease-out forwards;
+        }
+        @keyframes fillBar {
+            to { width: var(--skill-level); }
+        }
 .project-box {
   background: rgba(255,255,255,0.05);
   border: 1px solid #00aaff;
