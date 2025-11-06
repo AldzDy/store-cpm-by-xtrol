@@ -1,682 +1,87 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content=
-  "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>XTROL STORE - Sign In / Sign Up</title>
-  <link href=
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-  rel="stylesheet">
-  <link rel="stylesheet" href=
-  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href=
-  "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"
-  rel="stylesheet">
-  <style>
-        :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --accent-color: #ff6b6b;
-            --dark-color: #2c3e50;
-            --light-color: #f8f9fa;
-            --success-color: #4caf50;
-            --google-blue: #4285f4;
-            --google-red: #ea4335;
-            --google-yellow: #fbbc05;
-            --google-green: #34a853;
-            --whatsapp-green: #25d366;
-            --telegram-blue: #0088cc;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            display: block;
-            pointer-events: none;
-            opacity: 0.2;
-            animation: float 20s infinite;
-        }
-
-        .particle:nth-child(1) { left: 5%; animation-delay: 0s; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; }
-        .particle:nth-child(2) { left: 15%; animation-delay: 2s; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; }
-        .particle:nth-child(3) { left: 25%; animation-delay: 4s; width: 30px; height: 30px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; }
-        .particle:nth-child(4) { left: 40%; animation-delay: 0s; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; }
-        .particle:nth-child(5) { left: 55%; animation-delay: 3s; width: 25px; height: 25px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; }
-        .particle:nth-child(6) { left: 70%; animation-delay: 5s; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; }
-        .particle:nth-child(7) { left: 85%; animation-delay: 7s; width: 35px; height: 35px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.2; }
-            90% { opacity: 0.2; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-        }
-
-        .auth-container { width: 100%; max-width: 420px; background: rgba(255, 255, 255, 0.95); border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden; display: flex; flex-direction: column; min-height: 90vh; max-height: 95vh; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .auth-header { background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); padding: 25px 20px; text-align: center; color: white; position: relative; overflow: hidden; }
-        .auth-header::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('cpm.jpg'); background-size: cover; background-position: center; opacity: 0.1; z-index: 0; }
-        .logo-container { position: relative; z-index: 1; margin-bottom: 15px; }
-        .logo-circle { width: 70px; height: 70px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden; }
-        .logo-circle::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent); transform: rotate(45deg); animation: shine 3s infinite; }
-        @keyframes shine { 0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); } 100% { transform: translateX(100%) translateY(100%) rotate(45deg); } }
-        .logo-circle img { width: 50px; height: 50px; object-fit: cover; border-radius: 50%; }
-        .logo-text { font-size: 1.6rem; font-weight: 700; margin-bottom: 5px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
-        .logo-tagline { font-size: 0.85rem; opacity: 0.9; max-width: 280px; margin: 0 auto; }
-        .welcome-message { position: relative; z-index: 1; margin-top: 15px; padding: 10px; background: rgba(255, 255, 255, 0.15); border-radius: 10px; backdrop-filter: blur(5px); animation: fadeIn 1s ease-in-out; max-width: 90%; margin-left: auto; margin-right: auto; }
-        .welcome-message h3 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
-        .welcome-message p { font-size: 0.8rem; opacity: 0.9; margin: 0; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .auth-content { flex: 1; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; }
-        .auth-tabs { display: flex; margin-bottom: 20px; border-bottom: 1px solid #e0e0e0; }
-        .auth-tab { flex: 1; padding: 10px; text-align: center; background: none; border: none; font-size: 0.95rem; font-weight: 600; color: #6c757d; cursor: pointer; position: relative; transition: all 0.3s; }
-        .auth-tab.active { color: var(--primary-color); }
-        .auth-tab.active::after { content: ""; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary-color); border-radius: 3px 3px 0 0; }
-        .auth-form { display: none; }
-        .auth-form.active { display: block; }
-        .form-group { margin-bottom: 18px; position: relative; }
-        .form-control { border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 12px 12px 40px; font-size: 0.9rem; transition: all 0.3s; height: 45px; }
-        .form-control:focus { border-color: var(--primary-color); box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25); }
-        .input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6c757d; font-size: 0.9rem; }
-        .password-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #6c757d; cursor: pointer; font-size: 0.9rem; }
-        .remember-forgot { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-        .form-check { display: flex; align-items: center; }
-        .form-check-input { width: 16px; height: 16px; margin-right: 8px; cursor: pointer; }
-        .form-check-label { cursor: pointer; color: var(--dark-color); font-size: 0.85rem; }
-        .forgot-password { color: var(--primary-color); text-decoration: none; font-weight: 500; font-size: 0.85rem; transition: color 0.3s; }
-        .forgot-password:hover { color: var(--secondary-color); text-decoration: underline; }
-        .btn-auth { background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; border: none; border-radius: 10px; padding: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%; margin-bottom: 18px; position: relative; overflow: hidden; }
-        .btn-auth::before { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.2); transition: left 0.5s; }
-        .btn-auth:hover::before { left: 100%; }
-        .btn-auth:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
-        .divider { display: flex; align-items: center; margin: 18px 0; }
-        .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background-color: #e0e0e0; }
-        .divider span { padding: 0 15px; color: #6c757d; font-size: 0.85rem; }
-        .social-login { display: flex; justify-content: center; margin-bottom: 10px; }
-        .google-btn { display: flex; align-items: center; justify-content: center; background: white; border: 1px solid #dadce0; border-radius: 10px; padding: 10px 20px; font-size: 0.9rem; font-weight: 500; color: #3c4043; cursor: pointer; transition: all 0.3s; box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15); width: 100%; }
-        .google-btn:hover { box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15); background-color: #f8f9fa; }
-        .google-icon { width: 16px; height: 16px; margin-right: 10px; }
-        .terms { text-align: center; font-size: 0.75rem; color: #6c757d; margin-top: 10px; }
-        .terms a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
-        .loading { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.8); z-index: 1000; justify-content: center; align-items: center; }
-        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .features { display: flex; justify-content: space-around; margin-top: 10px; padding: 0 10px; }
-        .feature-item { text-align: center; opacity: 0.9; }
-        .feature-icon { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-size: 0.8rem; }
-        .feature-text { font-size: 0.7rem; }
-        .notification-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9998; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
-        .notification-overlay.show { opacity: 1; visibility: visible; }
-        .notification-popup { background-color: white; border-radius: 15px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); overflow: hidden; transform: scale(0.7); transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-        .notification-overlay.show .notification-popup { transform: scale(1); }
-        .notification-header { padding: 15px 20px; display: flex; align-items: center; border-bottom: 1px solid #f0f0f0; }
-        .notification-avatar { width: 45px; height: 45px; border-radius: 50%; margin-right: 15px; object-fit: cover; }
-        .notification-info { flex: 1; }
-        .notification-app-name { font-weight: 600; font-size: 16px; color: #333; margin-bottom: 2px; }
-        .notification-time { font-size: 12px; color: #999; }
-        .notification-close { background: none; border: none; color: #999; font-size: 18px; cursor: pointer; padding: 5px; }
-        .notification-body { padding: 20px; }
-        .notification-title { font-weight: 600; font-size: 18px; margin-bottom: 10px; color: #333; }
-        .notification-message { font-size: 15px; color: #555; line-height: 1.5; margin-bottom: 20px; }
-        .notification-actions { display: flex; justify-content: flex-end; gap: 10px; }
-        .notification-btn { padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; }
-        .notification-btn-cancel { background-color: #f0f0f0; color: #333; }
-        .notification-btn-ok { background-color: var(--primary-color); color: white; }
-        .notification-success .notification-header, .notification-success .notification-btn-ok { background-color: var(--success-color); color: white; }
-        .notification-error .notification-header, .notification-error .notification-btn-ok { background-color: var(--accent-color); color: white; }
-        .notification-info .notification-header, .notification-info .notification-btn-ok { background-color: var(--telegram-blue); color: white; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        .notification-icon { animation: pulse 2s infinite; }
-        .telegram-btn { display: flex; align-items: center; justify-content: center; background: var(--telegram-blue); color: white; border: none; border-radius: 10px; padding: 10px 20px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s; box-shadow: 0 1px 2px 0 rgba(0, 136, 204, 0.3), 0 1px 3px 1px rgba(0, 136, 204, 0.15); width: 100%; }
-        .telegram-btn:hover { box-shadow: 0 1px 3px 0 rgba(0, 136, 204, 0.3), 0 4px 8px 3px rgba(0, 136, 204, 0.15); background-color: #0077b3; }
-        .telegram-icon { width: 16px; height: 16px; margin-right: 10px; }
-        .telegram-widget-container { margin-top: 10px; display: flex; justify-content: center; }
-        .g_id_signin { width: 100% !important; }
-        .g_id_signin div { width: 100% !important; }
-        @media (max-width: 480px) {
-            .auth-container { max-width: 100%; min-height: 100vh; max-height: 100vh; border-radius: 0; }
-            .auth-content { padding: 15px; }
-            .logo-text { font-size: 1.4rem; }
-            .logo-tagline { font-size: 0.8rem; }
-        }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reyvaldo Kurniawan | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
-<body>
-  <div class="particles"></div>
-  <div class="loading">
-    <div class="spinner"></div>
+<body><canvas id="stars"></canvas>
+
+<header>
+  <a class="logo"> Reyvaldo Kurniawan </a>
+  <i class="fas fa-bars menu-toggle" onclick="toggleMenu()"></i>
+  <nav id="navMenu">
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#motifasi">Motifasi</a>
+  </nav>
+</header><section id="home" class="home">
+  <div class="profile-img">
+    <img src="https://files.catbox.moe/dbj1j4.jpeg" alt="Profile" />
+      </font>
+    <font face="Play" class="cn"><marquee behavior="alternate" direction="left" scrollamount="53" scrolldelay="10" width="100%"><font color="red">___________________________________________________</font></marquee>
+     <marquee behavior="alternate" scrollamount="5" style="border:1px solid;" width="70%">-= AldzHacked <font color="cyan">|</font> Aldo <font color="cyan">|</font> KangBobol <font color="cyan">|</font> Hacker 651 <font color="cyan">|</font> Hacktivism <font color="cyan">|</font> Coding <font color="cyan">|</font> Root#xXx <font color="cyan">|<font color="green"> jav_4fun <font color="cyan">|<font color="red"> Hacked Scurity <font color="cyan">=-</center></font></marquee></div>
+     <marquee behavior="alternate" direction="left" scrollamount="51" scrolldelay="51" width="100%"><font color="white">___________________________________________________</font></marquee></div></center>
+    </font>
   </div>
-  <div class="notification-overlay" id="notificationOverlay">
-    <div class="notification-popup">
-      <div class="notification-header">
-        <img src="logo.jpg" alt="XTROL STORE" class=
-        "notification-avatar">
-        <div class="notification-info">
-          <div class="notification-app-name">
-            XTROL STORE
-          </div>
-          <div class="notification-time" id="notificationTime">
-            Sekarang
-          </div>
-        </div><button class="notification-close" id=
-        "notificationClose"></button>
-      </div>
-      <div class="notification-body">
-        <div class="notification-title" id="notificationTitle">
-          Notifikasi
-        </div>
-        <div class="notification-message" id="notificationMessage">
-          Pesan notifikasi
-        </div>
-        <div class="notification-actions">
-          <button class="notification-btn notification-btn-cancel"
-          id="notificationCancel">Batal</button> <button class=
-          "notification-btn notification-btn-ok" id=
-          "notificationOk">OK</button>
-        </div>
-      </div>
-    </div>
+  <h1>Halo Saya <span> Reyvaldo Kurniawan </span></h1>
+  <div class="typing-text" id="typing-role"></div>
+  <div class="typing-desc" id="typing-desc"></div>
+  <div class="social-buttons">
+    <a href="https://wa.me/6283122635477">WhatsApp</a>
   </div>
-  <div class="auth-container">
-    <div class="auth-header">
-      <div class="logo-container">
-        <div class="logo-circle"><img src="logo.jpg" alt=
-        "XTROL STORE Logo"></div>
-        <h1 class="logo-text">XTROL STORE</h1>
-        <p class="logo-tagline">Pengalaman berbelanja premium
-        dengan koleksi terbaik</p>
-        <div class="welcome-message">
-          <h3>Selamat Datang Kembali! 👋</h3>
-          <p>Masuk ke akun Anda untuk melanjutkan belanja</p>
-        </div>
-      </div>
-      <div class="features">
-        <div class="feature-item">
-          <div class="feature-icon"></div>
-          <div class="feature-text">
-            Pengiriman Cepat
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon"></div>
-          <div class="feature-text">
-            Aman 100%
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon"></div>
-          <div class="feature-text">
-            Garansi 30 Hari
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="auth-content">
-      <div class="auth-tabs">
-        <button class="auth-tab active" data-tab="signin">Sign
-        In</button> <button class="auth-tab" data-tab="signup">Sign
-        Up</button>
-      </div><!-- Sign In Form -->
-      <div id="signinForm" class="auth-form active">
-        <form id="loginForm" name="loginForm">
-          <div class="form-group">
-            <input type="email" class="form-control" id="email"
-            placeholder="Email" required="">
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" id=
-            "password" placeholder="Password" required=""><i class=
-            "fas fa-eye password-toggle" id="togglePassword"></i>
-          </div>
-          <div class="remember-forgot">
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id=
-              "rememberMe"><label class="form-check-label" for=
-              "rememberMe">Ingat saya</label>
-            </div><a href="#" class="forgot-password">Lupa
-            password?</a>
-          </div><button type="submit" class="btn-auth">Sign
-          In</button>
-        </form>
-        <div class="divider">
-          <span>atau masuk dengan</span>
-        </div>
-        <div class="social-login">
-          <!-- Google Sign-In Button -->
-          <div id="googleSignInBtn" class="g_id_signin"></div>
-        </div><!-- Widget Telegram Login untuk Sign In -->
-        <div class="telegram-widget-container" id=
-        "telegram-widget-signin"></div>
-      </div><!-- Sign Up Form -->
-      <div id="signupForm" class="auth-form">
-        <form id="registerForm" name="registerForm">
-          <div class="form-group">
-            <input type="text" class="form-control" id="fullName"
-            placeholder="Nama Lengkap" required="">
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control" id=
-            "signupEmail" placeholder="Email" required="">
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" id=
-            "signupPassword" placeholder="Password" required=
-            ""><i class="fas fa-eye password-toggle" id=
-            "toggleSignupPassword"></i>
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" id=
-            "confirmPassword" placeholder="Konfirmasi Password"
-            required=""><i class="fas fa-eye password-toggle" id=
-            "toggleConfirmPassword"></i>
-          </div>
-          <div class="remember-forgot">
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id=
-              "agreeTerms" required=""><label class=
-              "form-check-label" for="agreeTerms">Setuju dengan
-              syarat & ketentuan</label>
+</section><section id="skills">
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-container">
+    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS">
+    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+            <div class="skill">
+                <strong>HTML & CSS:</strong>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="--skill-level: 90%;"></div>
+                </div>
             </div>
-          </div><button type="submit" class="btn-auth">Sign
-          Up</button>
-        </form>
-        <div class="divider">
-          <span>atau daftar dengan</span>
-        </div>
-        <div class="social-login">
-          <!-- Google Sign-Up Button -->
-          <div id="googleSignUpBtn" class="g_id_signin"></div>
-        </div><!-- Widget Telegram Login untuk Sign Up -->
-        <div class="telegram-widget-container" id=
-        "telegram-widget-signup"></div>
-      </div>
-      <div class="terms">
-        Dengan melanjutkan, Anda menyetujui <a href="api/terms.php"
-        target="_blank">Syarat & Ketentuan</a> dan <a href=
-        "api/privacy.php" target="_blank">Kebijakan Privasi</a>
-        kami
-      </div>
+            <div class="skill">
+                <strong>JavaScript:</strong>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="--skill-level: 85%;"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <strong>Python:</strong>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="--skill-level: 80%;"></div>
+            <!-- Tambahkan skill lainnya -->
+        </section>
+
+  </div>
+</section><section id="about">
+  <h2 class="section-title">About Me</h2>
+  <p class="description">
+    Nama Saya Reyvaldo Kurniawan | umur 15 | Pelajar SMK | Jurusan Teknik Komputer Dan Jaringan.
+  </p>
+</section><section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-container">
+    <div class="project-box">
+      <h3>WhatsApp Bot</h3>
+      <p>Automation bot for WhatsApp using Node.js & Baileys.</p>
     </div>
-  </div><!-- Google Sign-In -->
-  <script src="https://accounts.google.com/gsi/client" async defer
-  ></script> 
-  <!-- Fungsi callback global untuk otentikasi Telegram -->
-   
-  <script>
-
-        function onTelegramAuth(user) {
-            const loading = document.querySelector('.loading');
-            loading.style.display = 'flex';
-
-            console.log('Pengguna Telegram terotentikasi:', user);
-
-            // Kirim data pengguna ke backend Anda
-            fetch('api/telegram_auth.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            })
-            .then(response => response.json())
-            .then(data => {
-                loading.style.display = 'none';
-
-                if (data.success) {
-                    localStorage.setItem('loginToken', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    showNotification('success', 'Login Berhasil', 'Anda berhasil masuk dengan akun Telegram.');
-                    setTimeout(() => { window.location.href = 'homePage.html'; }, 2000);
-                } else {
-                    showNotification('error', 'Login Gagal', data.message);
-                }
-            })
-            .catch(error => {
-                loading.style.display = 'none';
-                showNotification('error', 'Kesalahan', 'Terjadi kesalahan saat memproses login Telegram.');
-                console.error('Error:', error);
-            });
-        }
-  </script> 
-  <script>
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const loading = document.querySelector('.loading');
-            
-            checkLoginStatus();
-            
-            // Tab switching
-            const authTabs = document.querySelectorAll('.auth-tab');
-            const authForms = document.querySelectorAll('.auth-form');
-            const welcomeMessage = document.querySelector('.welcome-message');
-            authTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const targetTab = this.getAttribute('data-tab');
-                    authTabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    authForms.forEach(form => {
-                        form.classList.remove('active');
-                        if (form.id === `${targetTab}Form`) form.classList.add('active');
-                    });
-                    if (targetTab === 'signin') {
-                        welcomeMessage.innerHTML = '<h3>Selamat Datang Kembali! 👋</h3><p>Masuk ke akun Anda untuk melanjutkan belanja</p>';
-                    } else {
-                        welcomeMessage.innerHTML = '<h3>Bergabung dengan XTROL STORE! 🎉</h3><p>Buat akun baru untuk mulai berbelanja</p>';
-                    }
-                });
-            });
-
-            // Toggle password visibility
-            setupPasswordToggle('togglePassword', 'password');
-            setupPasswordToggle('toggleSignupPassword', 'signupPassword');
-            setupPasswordToggle('toggleConfirmPassword', 'confirmPassword');
-
-            // Handle login form submission
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                loading.style.display = 'flex';
-                fetch('api/login.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `email=${encodeURIComponent(document.getElementById('email').value)}&password=${encodeURIComponent(document.getElementById('password').value)}&rememberMe=${document.getElementById('rememberMe').checked}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    loading.style.display = 'none';
-                    if (data.success) {
-                        if (document.getElementById('rememberMe').checked) {
-                            localStorage.setItem('loginToken', data.token);
-                            localStorage.setItem('user', JSON.stringify(data.user));
-                        } else {
-                            sessionStorage.setItem('loginToken', data.token);
-                            sessionStorage.setItem('user', JSON.stringify(data.user));
-                        }
-                        showNotification('success', 'Login Berhasil', data.message);
-                        setTimeout(() => { window.location.href = 'homePage.html'; }, 2000);
-                    } else {
-                        showNotification('error', 'Login Gagal', data.message);
-                    }
-                })
-                .catch(error => {
-                    loading.style.display = 'none';
-                    showNotification('error', 'Kesalahan', 'Terjadi kesalahan saat mencoba masuk.');
-                    console.error('Error:', error);
-                });
-            });
-
-            // Handle signup form submission
-            document.getElementById('registerForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const password = document.getElementById('signupPassword').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-
-                if (password !== confirmPassword) {
-                    showNotification('error', 'Pendaftaran Gagal', 'Password dan konfirmasi password tidak cocok.');
-                    return;
-                }
-                
-                loading.style.display = 'flex';
-                fetch('api/register.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `fullName=${encodeURIComponent(document.getElementById('fullName').value)}&signupEmail=${encodeURIComponent(document.getElementById('signupEmail').value)}&signupPassword=${encodeURIComponent(password)}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    loading.style.display = 'none';
-                    if (data.success) {
-                        localStorage.setItem('loginToken', data.token);
-                        localStorage.setItem('user', JSON.stringify(data.user));
-                        showNotification('success', 'Pendaftaran Berhasil', data.message);
-                        setTimeout(() => { window.location.href = 'homePage.html'; }, 2000);
-                    } else {
-                        showNotification('error', 'Pendaftaran Gagal', data.message);
-                    }
-                })
-                .catch(error => {
-                    loading.style.display = 'none';
-                    showNotification('error', 'Kesalahan', 'Terjadi kesalahan saat mendaftar.');
-                    console.error('Error:', error);
-                });
-            });
-
-            // Google Sign-In initialization
-            window.onload = function() {
-                // PERBAIKAN: Menggunakan client_id yang baru
-                google.accounts.id.initialize({
-                    client_id: '490669700883-1vf2oqi2vqggdrg25kuoh1fbjeonq7d9.apps.googleusercontent.com',
-                    callback: handleGoogleSignIn,
-                    auto_select: false,
-                    cancel_on_tap_outside: false
-                });
-                
-                // Render tombol Sign In
-                google.accounts.id.renderButton(
-                    document.getElementById("googleSignInBtn"),
-                    { 
-                        theme: "outline", 
-                        size: "large", 
-                        text: "signin_with", 
-                        width: "100%", 
-                        logo_alignment: "left",
-                        shape: "rectangular"
-                    }
-                );
-                
-                // Render tombol Sign Up
-                google.accounts.id.renderButton(
-                    document.getElementById("googleSignUpBtn"),
-                    { 
-                        theme: "outline", 
-                        size: "large", 
-                        text: "signup_with", 
-                        width: "100%", 
-                        logo_alignment: "left",
-                        shape: "rectangular"
-                    }
-                );
-                
-                // Tampilkan prompt One Tap (opsional)
-                google.accounts.id.prompt();
-                
-                // Inisialisasi widget Telegram
-                initTelegramWidgets();
-            };
-            
-            function handleGoogleSignIn(response) {
-                loading.style.display = 'flex';
-                
-                // Debug: Log the response
-                console.log('Google Sign-In response:', response);
-                
-                // Decode JWT token
-                const payload = JSON.parse(atob(response.credential.split('.')[1]));
-                
-                // Debug: Log the payload
-                console.log('Google Sign-In payload:', payload);
-                
-                // PERBAIKAN: Mengirim data ke endpoint yang benar dan format yang sesuai
-                fetch('api/login_google.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        google_id: payload.sub,
-                        email: payload.email,
-                        name: payload.name,
-                        picture: payload.picture,
-                        given_name: payload.given_name,
-                        family_name: payload.family_name,
-                        id_token: response.credential // Menggunakan id_token untuk memastikan validasi
-                    })
-                })
-                .then(res => {
-                    // Debug: Log the response status
-                    console.log('Response status:', res.status);
-                    return res.json();
-                })
-                .then(data => {
-                    loading.style.display = 'none';
-                    
-                    // Debug: Log the response data
-                    console.log('Response data:', data);
-                    
-                    if (data.success) {
-                        localStorage.setItem('loginToken', data.token);
-                        localStorage.setItem('user', JSON.stringify(data.user));
-                        showNotification('success', 'Login Berhasil', data.message);
-                        setTimeout(() => { window.location.href = 'homePage.html'; }, 2000);
-                    } else {
-                        showNotification('error', 'Login Gagal', data.message);
-                    }
-                })
-                .catch(error => {
-                    loading.style.display = 'none';
-                    showNotification('error', 'Kesalahan', 'Terjadi kesalahan saat masuk dengan Google.');
-                    console.error('Error:', error);
-                });
-            }
-
-            // Fungsi untuk menginisialisasi widget Telegram
-            function initTelegramWidgets() {
-                // Buat widget untuk Sign In
-                const telegramWidgetSignIn = document.createElement('script');
-                telegramWidgetSignIn.async = true;
-                telegramWidgetSignIn.src = 'https://telegram.org/js/telegram-widget.js?22';
-                telegramWidgetSignIn.setAttribute('data-telegram-login', 'Xtrolstorebot'); // Username bot Anda
-                telegramWidgetSignIn.setAttribute('data-size', 'large');
-                telegramWidgetSignIn.setAttribute('data-auth-url', window.location.origin + '/api/telegram_auth.php'); // URL endpoint auth
-                telegramWidgetSignIn.setAttribute('data-request-access', 'write');
-                telegramWidgetSignIn.setAttribute('data-userpic', 'true');
-                
-                // Tambahkan widget ke kontainer Sign In
-                document.getElementById('telegram-widget-signin').appendChild(telegramWidgetSignIn);
-                
-                // Buat widget untuk Sign Up
-                const telegramWidgetSignUp = document.createElement('script');
-                telegramWidgetSignUp.async = true;
-                telegramWidgetSignUp.src = 'https://telegram.org/js/telegram-widget.js?22';
-                telegramWidgetSignUp.setAttribute('data-telegram-login', 'Xtrolstorebot'); // Username bot Anda
-                telegramWidgetSignUp.setAttribute('data-size', 'large');
-                telegramWidgetSignUp.setAttribute('data-auth-url', window.location.origin + '/api/telegram_auth.php'); // URL endpoint auth
-                telegramWidgetSignUp.setAttribute('data-request-access', 'write');
-                telegramWidgetSignUp.setAttribute('data-userpic', 'true');
-                
-                // Tambahkan widget ke kontainer Sign Up
-                document.getElementById('telegram-widget-signup').appendChild(telegramWidgetSignUp);
-            }
-
-            // Forgot password handler
-            document.querySelector('.forgot-password').addEventListener('click', function(e) {
-                e.preventDefault();
-                const email = prompt('Masukkan email Anda untuk reset password:');
-                if (email) {
-                    loading.style.display = 'flex';
-                    fetch('api/forgot_password.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: `email=${encodeURIComponent(email)}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        loading.style.display = 'none';
-                        showNotification(data.success ? 'success' : 'error', 'Reset Password', data.message);
-                    })
-                    .catch(error => {
-                        loading.style.display = 'none';
-                        showNotification('error', 'Kesalahan', 'Terjadi kesalahan saat reset password.');
-                        console.error('Error:', error);
-                    });
-                }
-            });
-
-            // Sistem Notifikasi dan fungsi lainnya
-            setupNotificationSystem();
-            
-            function checkLoginStatus() {
-                const token = localStorage.getItem('loginToken') || sessionStorage.getItem('loginToken');
-                if (token) {
-                    fetch('api/check_login.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: `token=${encodeURIComponent(token)}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.valid) {
-                            window.location.href = 'homePage.html';
-                        } else {
-                            localStorage.clear();
-                            sessionStorage.clear();
-                        }
-                    })
-                    .catch(() => {
-                        localStorage.clear();
-                        sessionStorage.clear();
-                    });
-                }
-            }
-            
-            function setupPasswordToggle(toggleId, inputId) {
-                const toggle = document.getElementById(toggleId);
-                const input = document.getElementById(inputId);
-                if (toggle && input) {
-                    toggle.addEventListener('click', function() {
-                        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-                        input.setAttribute('type', type);
-                        this.classList.toggle('fa-eye-slash');
-                    });
-                }
-            }
-            
-            function setupNotificationSystem() {
-                const overlay = document.getElementById('notificationOverlay');
-                const popup = overlay.querySelector('.notification-popup');
-                const closeBtn = document.getElementById('notificationClose');
-                const cancelBtn = document.getElementById('notificationCancel');
-                const okBtn = document.getElementById('notificationOk');
-                
-                window.showNotification = (type, title, message) => {
-                    document.getElementById('notificationTitle').textContent = title;
-                    document.getElementById('notificationMessage').textContent = message;
-                    const now = new Date();
-                    document.getElementById('notificationTime').textContent = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-                    popup.className = 'notification-popup';
-                    if (type) popup.classList.add(`notification-${type}`);
-                    overlay.classList.add('show');
-                };
-
-                const closeNotification = () => overlay.classList.remove('show');
-                closeBtn.addEventListener('click', closeNotification);
-                cancelBtn.addEventListener('click', closeNotification);
-                okBtn.addEventListener('click', closeNotification);
-                overlay.addEventListener('click', e => { if (e.target === overlay) closeNotification(); });
-            }
-        });
-  </script>
-</body>
+    <div class="project-box">
+      <h3>Portfolio Website</h3>
+      <p>I Can Also Make A Simple Portfolio Like This Website.</p>
+    </div>
+  </div>
+</section><section id="motifasi">
+  <h2 class="section-title">Motifasi</h2>
+  <p class="description"><b>Jangan sia siakan hidupmu dan jangan menyerah yakin kita bisa untuk mengejar masa depan dan melupakan masa masa menyakitkan dan jangan menjadi orang yang nakal.</b></p>
+</section><footer>
+</footer><div class="music-player" onclick="toggleMusic()">
+  <i class="fas fa-music"></i>
+  <audio id="bgMusic" src="https://files.catbox.moe/a5ncoy.mp3" loop autoplay></audio>
+</div><script src="/script.js" defer></script></body>
 </html>
