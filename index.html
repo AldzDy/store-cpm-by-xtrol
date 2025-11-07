@@ -1,86 +1,406 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reyvaldo Kurniawan | Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link rel="stylesheet" href="/style.css" />
+  <style>
+    /* Modern CSS for a sleek, futuristic look */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    canvas#stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #00d4ff;
+      text-decoration: none;
+    }
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover, nav a.active {
+      color: #00d4ff;
+    }
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .home {
+      background: url('https://files.catbox.moe/xgwz0o.jpg') no-repeat center/cover;
+      position: relative;
+    }
+    .home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .home > * {
+      position: relative;
+      z-index: 1;
+    }
+    .profile-img img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid #00d4ff;
+      box-shadow: 0 0 20px #00d4ff;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    h1 span {
+      color: #00d4ff;
+    }
+    .typing-text, .typing-desc {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+    }
+    .social-buttons {
+      margin-top: 2rem;
+    }
+    .social-buttons a {
+      display: inline-block;
+      margin: 0 1rem;
+      padding: 0.5rem 1rem;
+      background: #00d4ff;
+      color: #000;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: background 0.3s;
+    }
+    .social-buttons a:hover {
+      background: #0099cc;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #00d4ff;
+    }
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 800px;
+    }
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 1rem;
+    }
+    .skill {
+      margin-bottom: 1rem;
+    }
+    .skill-bar {
+      width: 100%;
+      height: 20px;
+      background: #333;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00d4ff, #0099cc);
+      width: var(--skill-level);
+      transition: width 1s ease;
+    }
+    .description {
+      max-width: 600px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+    .project-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+    }
+    .project-box:hover {
+      transform: translateY(-10px);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.8);
+    }
+    .music-player {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background: #00d4ff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s;
+    }
+    .music-player:hover {
+      background: #0099cc;
+    }
+    .music-player i {
+      color: #000;
+    }
+    audio {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 1rem;
+      }
+      nav.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
 </head>
-<body><canvas id="stars"></canvas>
+<body>
+  <canvas id="stars"></canvas>
 
-<header>
-  <a class="logo"> Reyvaldo Kurniawan </a>
-  <i class="fas fa-bars menu-toggle" onclick="toggleMenu()"></i>
-  <nav id="navMenu">
-    <a href="#home" class="active">Home</a>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#motifasi">Motifasi</a>
-  </nav>
-</header><section id="home" class="home">
-  <div class="profile-img">
-    <img src="https://files.catbox.moe/dbj1j4.jpeg" alt="Profile" />
-      </font>
-    <font face="Play" class="cn"><marquee behavior="alternate" direction="left" scrollamount="53" scrolldelay="10" width="100%"><font color="red">___________________________________________________</font></marquee>
-     <marquee behavior="alternate" scrollamount="5" style="border:1px solid;" width="70%">-= AldzHacked <font color="cyan">|</font> Aldo <font color="cyan">|</font> KangBobol <font color="cyan">|</font> Hacker 651 <font color="cyan">|</font> Hacktivism <font color="cyan">|</font> Coding <font color="cyan">|</font> Root#xXx <font color="cyan">|<font color="green"> jav_4fun <font color="cyan">|<font color="red"> Hacked Scurity <font color="cyan">=-</center></font></marquee></div>
-     <marquee behavior="alternate" direction="left" scrollamount="51" scrolldelay="51" width="100%"><font color="white">___________________________________________________</font></marquee></div></center>
-    </font>
-  </div>
-  <h1>Halo Saya <span> Reyvaldo Kurniawan </span></h1>
-  <div class="typing-text" id="typing-role"></div>
-  <div class="typing-desc" id="typing-desc"></div>
-  <div class="social-buttons">
-    <a href="https://wa.me/6283122635477">WhatsApp</a>
-  </div>
-</section><section id="skills">
-  <h2 class="section-title">Skills</h2>
-  <div class="skills-container">
-    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
-    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS">
-    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-    <div class="skill">
-       <strong>HTML: 90%</strong>
-       <div class="skill-bar">
-       <div class="skill-fill" style="--skill-level: 90%;"></div>
-            </div>
-                 </div>
-    <div class="skill">
-       <strong>JavaScript: 85%</strong>
-       <div class="skill-bar">
-       <div class="skill-fill" style="--skill-level: 85%;"></div>
-            </div>
-                </div>
-    <div class="skill">
-        <strong>Python: 50%</strong>
-        <div class="skill-bar">
-        <div class="skill-fill" style="--skill-level: 50%;"></div>
-              </section>
+  <header>
+    <a class="logo">Reyvaldo Kurniawan</a>
+    <i class="fas fa-bars menu-toggle" onclick="toggleMenu()"></i>
+    <nav id="navMenu">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#motivation">Motivation</a>
+    </nav>
+  </header>
 
-  </div>
-</section><section id="about">
-  <h2 class="section-title">About Me</h2>
-  <p class="description">
-    Nama Saya Reyvaldo Kurniawan | umur 15 | Pelajar SMK | Jurusan Teknik Komputer Dan Jaringan.
-  </p>
-</section><section id="projects">
-  <h2 class="section-title">Projects</h2>
-  <div class="projects-container">
-    <div class="project-box">
-      <h3>WhatsApp Bot</h3>
-      <p>Automation bot for WhatsApp using Node.js & Baileys.</p>
+  <section id="home" class="home">
+    <div class="profile-img">
+      <img src="https://files.catbox.moe/xgwz0o.jpg" alt="Profile" />
     </div>
-    <div class="project-box">
-      <h3>Portfolio Website</h3>
-      <p>I Can Also Make A Simple Portfolio Like This Website.</p>
+    <h1>Hello, I'm <span>Reyvaldo Kurniawan</span></h1>
+    <div class="typing-text" id="typing-role">Aspiring Developer & Tech Enthusiast</div>
+    <div class="typing-desc" id="typing-desc">Passionate about coding, cybersecurity, and building innovative solutions.</div>
+    <div class="social-buttons">
+      <a href="https://wa.me/6283122635477"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="https://t.me/XtrolCome"><i class="fab fa-telegram"></i> Telegram</a>
+      <a href="https://tiktok.com/username/@mas.reyvaldo"><i class="fab fa-tiktok"></i> TikTok</a>
     </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <p class="description">
+      Hi, I'm Reyvaldo Kurniawan, a 15-year-old student at SMK majoring in Computer and Network Engineering. I'm passionate about technology, coding, and exploring the world of cybersecurity ethically.
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-container">
+      <div>
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+        <div class="skill">
+          <strong>HTML: 90%</strong>
+          <div class="skill-bar">
+            <div class="skill-fill" style="--skill-level: 90%;"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS">
+        <div class="skill">
+          <strong>JavaScript: 85%</strong>
+          <div class="skill-bar">
+            <div class="skill-fill" style="--skill-level: 85%;"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+        <div class="skill">
+          <strong>Python: 50%</strong>
+          <div class="skill-bar">
+            <div class="skill-fill" style="--skill-level: 50%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-container">
+      <div class="project-box">
+        <h3>WhatsApp Bot</h3>
+        <p>Automation bot for WhatsApp using Node.js & Baileys. Designed for fun and productivity.</p>
+      </div>
+      <div class="project-box">
+        <h3>Portfolio Website</h3>
+        <p>A sleek portfolio website showcasing skills and projects, built with modern web technologies.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="motivation">
+    <h2 class="section-title">Motivation</h2>
+    <p class="description">
+      <b>Don't waste your life and never give up. Believe in yourself to chase a bright future, forget the painful past, and always be a good person who respects parents and others.</b>
+    </p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Reyvaldo Kurniawan. All rights reserved.</p>
+  </footer>
+
+  <div class="music-player" onclick="toggleMusic()">
+    <i class="fas fa-music"></i>
+    <audio id="bgMusic" src="https://files.catbox.moe/a5ncoy.mp3" loop autoplay></audio>
   </div>
-</section><section id="motifasi">
-  <h2 class="section-title">Motifasi</h2>
-  <p class="description"><b>Jangan sia siakan hidupmu dan jangan menyerah yakin kita bisa untuk mengejar masa depan dan melupakan masa masa menyakitkan dan jangan menjadi orang yang nakal dan melawan orang tua.</b></p>
-</section><footer>
-</footer><div class="music-player" onclick="toggleMusic()">
-  <i class="fas fa-music"></i>
-  <audio id="bgMusic" src="https://files.catbox.moe/a5ncoy.mp3" loop autoplay></audio>
-</div><script src="/script.js" defer></script></body>
+
+  <script>
+    // Starfield animation
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const stars = [];
+    for (let i = 0; i < 100; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2,
+        speed: Math.random() * 0.5
+      });
+    }
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) star.y = 0;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Typing effect
+    const roles = ['Aspiring Developer', 'Tech Enthusiast', 'Cybersecurity Learner'];
+    const descriptions = ['Passionate about coding and ethical hacking.', 'Building innovative solutions.', 'Exploring the digital world.'];
+    let roleIndex = 0;
+    let descIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    function typeWriter() {
+      const currentRole = roles[roleIndex];
+      const currentDesc = descriptions[descIndex];
+      const roleElement = document.getElementById('typing-role');
+      const descElement = document.getElementById('typing-desc');
+      if (!isDeleting) {
+        roleElement.innerHTML = currentRole.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentRole.length) {
+          isDeleting = true;
+          setTimeout(typeWriter, 2000);
+          return;
+        }
+      } else {
+        roleElement.innerHTML = currentRole.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          isDeleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          descIndex = (descIndex + 1) % descriptions.length;
+        }
+      }
+      setTimeout(typeWriter, isDeleting ? 100 : 200);
+    }
+    typeWriter();
+
+    // Menu toggle
+    function toggleMenu() {
+      const nav = document.getElementById('navMenu');
+      nav.classList.toggle('show');
+    }
+
+    // Music toggle
+    function toggleMusic() {
+      const audio = document.getElementById('bgMusic');
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
+</body>
 </html>
